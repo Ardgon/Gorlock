@@ -44,8 +44,9 @@
      - Prędkość ataku o 5%
      
  -Wybuchowa
-    Zachowanie : Podbiega do najbliższej struktury gracza odczekuje 2 sekundy i wybucha.
-        Zabita wybucha w miejscu i natychmiast.
+    Zachowanie : Podbiega do najbliższej struktury gracza odczekuje 2,5 sekundy i wybucha.
+        Zabita wybucha w miejscu i natychmiast(Bez animacji).
+        Zmniejszone HP i zwiększony SPEED
      buffy na stack okruszka:
      - SPEED 2,5% oraz kilka punktów
         
