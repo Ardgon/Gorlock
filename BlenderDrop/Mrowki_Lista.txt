@@ -54,8 +54,7 @@
  -BOSS
  -Królowa
    Zachowanie : Idzie w kierunku burgera atakując struktury gracza
-      Dodatkowe zachowania : 
-      Wykonuje spawn kilku mrowek
+      Dodatkowe zachowania :
       Wykonuje atak obszarowy tąpnięcie
       Wykonyje ryknięcie które na chwile zwiększa SPEED na sporym obszarze i lekko DMG 
     Nie stakuje się z okruszków.
