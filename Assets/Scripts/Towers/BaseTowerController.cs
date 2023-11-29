@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTowerController : MonoBehaviour
@@ -21,9 +22,13 @@ public class BaseTowerController : MonoBehaviour
     internal float attackDamage = 1f;
     [SerializeField]
     internal bool blockRotation;
+    [SerializeField]
+    internal BaseTargetComponent targetComponent;
+    [SerializeField]
+    internal bool continuousTargetting;
 
     internal float nextAttackTime;
-    internal Transform attackTarget;
+    internal List<Transform> attackTargets = new();
     internal Transform towerHingeTransform; // Transform to rotate tower model
 
 
@@ -41,10 +46,10 @@ public class BaseTowerController : MonoBehaviour
 
     private void RotateTowardsTarget()
     {
-        if (attackTarget != null && !blockRotation)
+        if (attackTargets.Count > 0 && !blockRotation)
         {
-            // Rotate towards the nearest target
-            Vector3 targetDirection = attackTarget.transform.position - transform.position;
+            // Rotate towards the first target
+            Vector3 targetDirection = attackTargets[0].transform.position - transform.position;
             targetDirection.y = 0f;
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             towerHingeTransform.rotation = Quaternion.Slerp(towerHingeTransform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -53,30 +58,10 @@ public class BaseTowerController : MonoBehaviour
 
     internal virtual void DetectTarget()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange, targetLayer);
+        if (!continuousTargetting && Time.time < nextAttackTime)
+            return;
 
-        Transform nearestTarget = null;
-        float nearestDistance = float.MaxValue;
-
-        foreach (var collider in colliders)
-        {
-            // Skip colliders that belong to or are a child of this GameObject
-            if (collider.transform.IsChildOf(transform) || collider.transform == transform)
-            {
-                continue;
-            }
-
-            float distanceToTarget = Vector3.Distance(transform.position, collider.transform.position);
-
-            // Check if the current target is closer than the previous nearest target
-            if (distanceToTarget < nearestDistance)
-            {
-                nearestTarget = collider.transform;
-                nearestDistance = distanceToTarget;
-            }
-        }
-
-        attackTarget = nearestTarget != null ? nearestTarget : null;
+        attackTargets = targetComponent.DetectTargets(attackRange, targetLayer);
     }
 
 
