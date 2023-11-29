@@ -16,7 +16,7 @@ public class ProjectileTowerController : BaseTowerController
         if (projectileController != null)
         {
             // Set the target for the projectile
-            projectileController.SetTarget(attackTargets[0].transform, projectileSpeed, attackDamage);
+            projectileController.SetTarget(attackTargets[0].transform, projectileSpeed, attackDamage, attackCenterMass);
         }
 
         nextAttackTime = Time.time + attackCooldown;

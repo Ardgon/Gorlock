@@ -26,6 +26,8 @@ public class BaseTowerController : MonoBehaviour
     internal BaseTargetComponent targetComponent;
     [SerializeField]
     internal bool continuousTargetting;
+    [SerializeField]
+    internal bool attackCenterMass;
 
     internal float nextAttackTime;
     internal List<Transform> attackTargets = new();

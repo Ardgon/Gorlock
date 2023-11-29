@@ -23,7 +23,7 @@ public class AOEAttackTowerController : BaseTowerController
                 if (projectileController != null)
                 {
                     // Set the target for the projectile
-                    projectileController.SetTarget(aiController.transform, projectileSpeed, attackDamage);
+                    projectileController.SetTarget(aiController.transform, projectileSpeed, attackDamage, attackCenterMass);
                 }
             }
         }
