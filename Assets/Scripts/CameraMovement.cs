@@ -30,27 +30,27 @@ public class CameraMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && CameraPosition.z < 40)
         {
-            CameraPosition.z += CameraSpeed / 10;
+            CameraPosition.z += CameraSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S) && CameraPosition.z > 28)
         {
-            CameraPosition.z -= CameraSpeed / 10;
+            CameraPosition.z -= CameraSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.A) && CameraPosition.x > -45)
         {
-            CameraPosition.x -= CameraSpeed / 10;
+            CameraPosition.x -= CameraSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D) && CameraPosition.x < -10)
         {
-            CameraPosition.x += CameraSpeed / 10;
+            CameraPosition.x += CameraSpeed * Time.deltaTime;
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f && CameraPosition.y > -1)
         {
-            CameraPosition += cameraForward * CameraSpeed;
+            CameraPosition += cameraForward * CameraSpeed * Time.deltaTime;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0f && CameraPosition.y < 5)
         {
-            CameraPosition -= cameraForward * CameraSpeed;
+            CameraPosition -= cameraForward * CameraSpeed * Time.deltaTime;
         }
 
 
