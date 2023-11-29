@@ -1,34 +1,70 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class HealTowerController : ProjectileTowerController
+public class HealTowerController : BaseTowerController
 {
     internal override void DetectTarget()
     {
+        if (Time.time < nextAttackTime)
+            return;
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange, targetLayer);
 
-        Transform target = null;
-        float lowestHealth = float.MaxValue;
+        List<Transform> potentialTargets = new List<Transform>();
 
+        float lowestHealth = float.MaxValue;
         foreach (var collider in colliders)
         {
+            Transform targetTransform = collider.transform;
+
             // Skip colliders that belong to or are a child of this GameObject
-            if (collider.transform.IsChildOf(transform) || collider.transform == transform)
+            if (targetTransform.IsChildOf(transform) || targetTransform == transform)
             {
                 continue;
             }
-
-            var targetHealth = collider.GetComponent<Health>();
-            if (targetHealth == null)
+            var targetHealth = targetTransform.GetComponent<Health>();
+            // Check if controller is enabled, i.e. tower is active
+            var targetController = targetTransform.GetComponent<BaseTowerController>();
+            if (targetHealth == null || targetController == null || targetController.enabled == false)
                 continue;
 
-            // Check if the current target is closer than the previous nearest target
-            if (targetHealth.GetHitHpoint() < lowestHealth)
+            float targetHitpoints = targetHealth.GetHitHpoint();
+
+            if (targetHitpoints < lowestHealth)
             {
-                target = collider.transform;
-                lowestHealth = targetHealth.GetHitHpoint();
+                // Found a new lowest health, clear previous potential targets
+                potentialTargets.Clear();
+                potentialTargets.Add(targetTransform);
+                lowestHealth = targetHitpoints;
+            }
+            else if (targetHitpoints == lowestHealth)
+            {
+                // Add this target to potential targets with the same lowest health
+                potentialTargets.Add(targetTransform);
             }
         }
 
-        attackTarget = target != null ? target : null;
+        // Choose a random target from potential targets
+        attackTarget = potentialTargets.Count > 0 ? potentialTargets[Random.Range(0, potentialTargets.Count)] : null;
+    }
+
+    internal override void Attack()
+    {
+        if (attackTarget == null
+            || Time.time < nextAttackTime
+            || Vector3.Distance(transform.position, attackTarget.transform.position) > attackRange)
+            return;
+
+        // Instantiate and shoot a projectile
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
+
+        if (projectileController != null)
+        {
+            // Set the target for the projectile
+            projectileController.SetTarget(attackTarget.transform, projectileSpeed, attackDamage, true);
+        }
+
+        nextAttackTime = Time.time + attackCooldown;
     }
 }
