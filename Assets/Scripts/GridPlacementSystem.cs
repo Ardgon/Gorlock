@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class GridPlacementSystem : MonoBehaviour
 {
-    //[SerializeField]
-    //private GameObject mouseIndicator;
-    //[SerializeField]
-    //private GameObject cellIndicator;
     [SerializeField]
     private InputManager inputManager;
     [SerializeField]
@@ -27,8 +23,6 @@ public class GridPlacementSystem : MonoBehaviour
 
     private GridData gridObjectData;
 
-    //private Renderer previewRenderer;
-
     private List<GameObject> placedGameObjects = new();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
 
@@ -36,7 +30,6 @@ public class GridPlacementSystem : MonoBehaviour
     {
         StopPlacement();
         gridObjectData = new();
-        //previewRenderer = cellIndicator.GetComponentInChildren<Renderer>();
     }
 
     public void StartPlacement(int ID)
@@ -49,7 +42,6 @@ public class GridPlacementSystem : MonoBehaviour
             return;
         }
         gridVisualization.SetActive(true);
-        //cellIndicator.SetActive(true);
         preview.StartShowingPlacementPreview(database.objectData[selectedObjectIndex].Prefab, database.objectData[selectedObjectIndex].Size);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
@@ -84,7 +76,6 @@ public class GridPlacementSystem : MonoBehaviour
     {
         selectedObjectIndex = -1;
         gridVisualization.SetActive(false);
-        //cellIndicator.SetActive(false);
         preview.StopShowingPreview();
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
@@ -108,11 +99,5 @@ public class GridPlacementSystem : MonoBehaviour
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
         preview.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
         lastDetectedPosition = gridPosition;
-
-
-        //previewRenderer.material.color = placemetnValifity ? Color.white : Color.red;
-
-        //mouseIndicator.transform.position = mousePosition;
-        //cellIndicator.transform.position = grid.CellToWorld(gridPosition);
     }
 }
