@@ -36,7 +36,7 @@ public class PlacementPreviewSystem : MonoBehaviour
         previewObjectObstacle.enabled = false;
 
         // Disable AI Controller
-        previewObject.GetComponent<TowerController>().enabled = false;
+        previewObject.GetComponent<BaseTowerController>().enabled = false;
 
         PreparePreview(previewObject);
         PrepareCursor(size);
