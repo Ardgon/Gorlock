@@ -24,15 +24,19 @@ public class WaveSpawner : MonoBehaviour
         {
             waves[i].enemiesLeft = waves[i].enemies.Length;
         }
+
+       
     }
 
     private void Update()
     {
+
         if (currentWaveIndex >= waves.Length)
         {
             Debug.Log("Wave survived");
             return;
-        }    
+        }
+
         if (readyToCountDown == true)
         {
             countdown -= Time.deltaTime;
