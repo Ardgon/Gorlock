@@ -54,7 +54,10 @@
  -BOSS
  -Królowa
    Zachowanie : Idzie w kierunku burgera atakując struktury gracza
-       po drodze oraz respiąc kilka mrówek podstawowych(Lub innych z pewnym % }
+      Dodatkowe zachowania : 
+      Wykonuje spawn kilku mrowek
+      Wykonuje atak obszarowy tąpnięcie
+      Wykonyje ryknięcie które na chwile zwiększa SPEED na sporym obszarze i lekko DMG 
     Nie stakuje się z okruszków.
     posiadała by statyczne statystyki zależne od poziomu
     zawsze respiła by się najdalej od burgera
@@ -62,3 +65,4 @@
 Mechanika ogólna
 jeżeli mrówki nie mogą dojść nigdzie każda zatakuje struktury gracza
 podnieśnie okruszka spowania posiadacza o 10% (Wyjątek robotnica)
+okruszki zwiększa skalę per okruch
