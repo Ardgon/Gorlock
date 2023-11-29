@@ -1,12 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class StatusEffectData
+{
+    public GameObject effectPrefab;
+    [Range(0f, 1f)]
+    public float chanceToApply;
+}
 
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField]
     private float distanceThreshold = 0.1f;
     [SerializeField]
-    private List<GameObject> statusEffects = new();
+    private List<StatusEffectData> statusEffects = new List<StatusEffectData>();
 
     private float speed = 15f;
     private Transform target;
@@ -73,16 +82,25 @@ public class ProjectileController : MonoBehaviour
                 target.GetComponent<Health>()?.TakeDamage(damageToDeal);
                 ApplyStatusEffects();
             }
-            
+
             Destroy(gameObject);
         }
     }
 
     private void ApplyStatusEffects()
     {
-        foreach(var effect in statusEffects)
+        StatusEffectHandler statusEffectHandler = target.GetComponent<StatusEffectHandler>();
+        if (statusEffectHandler == null)
         {
-            Instantiate(effect, target);
-        }        
+            statusEffectHandler = target.gameObject.AddComponent<StatusEffectHandler>();
+        }
+
+        foreach (var effectData in statusEffects)
+        {
+            if (UnityEngine.Random.value <= effectData.chanceToApply && !statusEffectHandler.HasEffect(effectData.effectPrefab))
+            {
+                statusEffectHandler.ApplyEffect(effectData.effectPrefab);
+            }
+        }
     }
 }

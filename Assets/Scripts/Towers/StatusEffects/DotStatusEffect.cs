@@ -42,9 +42,4 @@ public class DotStatusEffect : BaseStatusEffect
 
         timeSinceLastTick %= 1f / tickRate;
     }
-
-    private void RemoveStatusEffect()
-    {
-        Destroy(gameObject);
-    }
 }

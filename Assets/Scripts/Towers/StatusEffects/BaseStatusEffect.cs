@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class BaseStatusEffect : MonoBehaviour
 {
@@ -11,8 +9,16 @@ public abstract class BaseStatusEffect : MonoBehaviour
 
     //public Sprite IndicatorIcon => indicatorIcon;
 
+    private StatusEffectHandler statusEffectHandler;
+
     internal virtual void Start()
     {
         //uiIndicator.sprite = indicatorIcon;
+        statusEffectHandler = GetComponentInParent<StatusEffectHandler>(); 
+    }
+    internal void RemoveStatusEffect()
+    {
+        statusEffectHandler.RemoveEffect(gameObject);
+        Destroy(gameObject);
     }
 }
