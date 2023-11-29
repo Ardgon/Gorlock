@@ -10,6 +10,14 @@ public class TowerController : MonoBehaviour
     private LayerMask targetLayer;
     [SerializeField]
     private float attackCooldown = 1f;
+    [SerializeField]
+    private float projectileSpeed = 15f;
+    [SerializeField]
+    private GameObject projectilePrefab;
+    [SerializeField]
+    private Transform projectileSpawnPoint;
+    [SerializeField]
+    private float attackDamage = 1f;
 
     private float nextAttackTime;
     private AIController attackTarget;
@@ -69,16 +77,23 @@ public class TowerController : MonoBehaviour
         attackTarget = nearestTarget != null ? nearestTarget.GetComponent<AIController>() : null;
     }
 
-
     private void Attack()
     {
         if (attackTarget == null
-            || Time.time >= nextAttackTime
+            || Time.time < nextAttackTime
             || Vector3.Distance(transform.position, attackTarget.transform.position) > attackRange)
             return;
 
-        // Implement attack logic here
-        Debug.Log("Attacking " + attackTarget.name);
+        // Instantiate and shoot a projectile
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
+
+        if (projectileController != null)
+        {
+            // Set the target for the projectile
+            projectileController.SetTarget(attackTarget.transform, projectileSpeed, attackDamage);
+        }
+
         nextAttackTime = Time.time + attackCooldown;
     }
 
