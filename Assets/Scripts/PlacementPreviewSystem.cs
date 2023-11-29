@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlacementPreviewSystem : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class PlacementPreviewSystem : MonoBehaviour
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
     {
         previewObject = Instantiate(prefab);
+        Collider[] previewObjectColliders = GetComponentsInChildren<Collider>();
+        foreach (Collider col in previewObjectColliders) { col.enabled = false; }
+        var previewObjectObstacle = previewObject.GetComponentInChildren<NavMeshObstacle>();
+        previewObjectObstacle.enabled = false;
+
         PreparePreview(previewObject);
         PrepareCursor(size);
         cellIndicator.SetActive(true);
