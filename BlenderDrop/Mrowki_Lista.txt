@@ -49,11 +49,6 @@
     posiadała by statyczne statystyki zależne od poziomu
     zawsze respiła by się najdalej od burgera
     
-    
-    
-    
-
-
 Mechanika ogólna
 jeżeli mrówki nie mogą dojść nigdzie każda zatakuje struktury gracza
 podnieśnie okruszka spowania posiadacza o 10% (Wyjątek robotnica)
