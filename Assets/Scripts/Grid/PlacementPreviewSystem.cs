@@ -94,6 +94,6 @@ public class PlacementPreviewSystem : MonoBehaviour
 
     private void MovePreview(Vector3 position)
     {
-        previewObject.transform.position = new Vector3(position.x, previewYOffset, position.z);
+        previewObject.transform.position = new Vector3(position.x, position.y+previewYOffset, position.z);
     }
 }
