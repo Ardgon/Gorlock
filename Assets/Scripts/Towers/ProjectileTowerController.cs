@@ -4,9 +4,9 @@ public class ProjectileTowerController : BaseTowerController
 {
     internal override void Attack()
     {
-        if (attackTarget == null
+        if (attackTargets.Count != 1
             || Time.time < nextAttackTime
-            || Vector3.Distance(transform.position, attackTarget.transform.position) > attackRange)
+            || Vector3.Distance(transform.position, attackTargets[0].transform.position) > attackRange)
             return;
 
         // Instantiate and shoot a projectile
@@ -16,7 +16,7 @@ public class ProjectileTowerController : BaseTowerController
         if (projectileController != null)
         {
             // Set the target for the projectile
-            projectileController.SetTarget(attackTarget.transform, projectileSpeed, attackDamage);
+            projectileController.SetTarget(attackTargets[0].transform, projectileSpeed, attackDamage, attackCenterMass);
         }
 
         nextAttackTime = Time.time + attackCooldown;
