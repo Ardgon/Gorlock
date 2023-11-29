@@ -1,0 +1,59 @@
+ -Podstawowa
+    Zachowanie :idzie w kierunku najbliższego zadania (Okruszki burger)
+      burgera gryzie a okruszki podnosi i próbuje zanieść do domu
+     buffy na stack okruszka:
+      - HP o kilka punktów
+      - DMG o kilka punktów
+      
+ -Pancerna 
+    Zachowanie to samo co Podstawowa
+      Spowolniona o 20-25% więcej hp i/lub pancerz zmniejszający obrażenie otrzymywane.
+      Odporny na spowolnienia
+     buffy na stack okruszka:
+      - HP (Procentowe jeżeli nie istnieje pancerz w przeciwnym razie o kilka punktów)
+      - pancerz o kilka punktów (Jeżeli istnieje)
+    
+ -Robotnica
+    Zachowanie : priorytet > atakowanie okruszków
+    Nieśie okruszki bez kary do spowolnienia
+     buffy na stack okruszka:
+     - HP o kilka punktów
+     - Prędkość 2,5% per stack
+    
+ -Wojownik
+    Zachowanie : Priorytet > atakowanie Hamburgera
+      Zwiększone DMG o 5% lub kilka punktów w burgera
+      LUB
+      Zwiększona prędkość ruchu o 5-10%
+     buffy na stack okruszka:
+
+ -Weganin
+    Zachowanie : Priorytet > Atakuje struktury gracza na blisko
+      ma zwiększone DMG o 5% 
+      LUB
+      Zwiększone Hp o 5%
+     buffy na stack okruszka:
+     - DMG 1,5% oraz kilka punktów
+      
+ -Toksyczny Weganin
+    Zachowanie : Priorytet > Atakuje struktury gracza z dystansu
+      Strzelanie na odległość (Zasięg do zbadania)
+     buffy na stack okruszka:
+     - Prędkość ataku o 5%
+     
+ -BOSS
+ -Królowa
+   Zachowanie : Idzie w kierunku burgera atakując struktury gracza
+       po drodze oraz respiąc kilka mrówek podstawowych(Lub innych z pewnym % }
+    Nie stakuje się z okruszków.
+    posiadała by statyczne statystyki zależne od poziomu
+    zawsze respiła by się najdalej od burgera
+    
+    
+    
+    
+
+
+Mechanika ogólna
+jeżeli mrówki nie mogą dojść nigdzie każda zatakuje struktury gracza
+podnieśnie okruszka spowania posiadacza o 10% (Wyjątek robotnica)
