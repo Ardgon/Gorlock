@@ -12,16 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b04fa751bd38be43bdf7796e1480ceb, type: 3}
   m_Name: TowersDatabase
   m_EditorClassIdentifier: 
-  towerData:
+  objectData:
   - <Name>k__BackingField: Onion
     <ID>k__BackingField: 0
-    <Size>k__BackingField: {x: 0, y: 0}
+    <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 3228671314386696402, guid: 4bcaa894ebf994b4791bb52745d4dd67, type: 3}
-  - <Name>k__BackingField: Lettuce
+  - <Name>k__BackingField: "Oni\xF3n"
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 3228671314386696402, guid: 4bcaa894ebf994b4791bb52745d4dd67, type: 3}
-  - <Name>k__BackingField: Tomato
-    <ID>k__BackingField: 2
-    <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 3228671314386696402, guid: 4bcaa894ebf994b4791bb52745d4dd67, type: 3}
+    <Prefab>k__BackingField: {fileID: 1332944231696084276, guid: 6621b9b8f7007d54c8cb41a53cfa984e, type: 3}
