@@ -28,10 +28,15 @@ public class PlacementPreviewSystem : MonoBehaviour
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
     {
         previewObject = Instantiate(prefab);
+
+        // Disable Collider and NavMeshObstacles
         Collider[] previewObjectColliders = GetComponentsInChildren<Collider>();
         foreach (Collider col in previewObjectColliders) { col.enabled = false; }
         var previewObjectObstacle = previewObject.GetComponentInChildren<NavMeshObstacle>();
         previewObjectObstacle.enabled = false;
+
+        // Disable AI Controller
+        previewObject.GetComponent<TowerController>().enabled = false;
 
         PreparePreview(previewObject);
         PrepareCursor(size);

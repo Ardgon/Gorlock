@@ -7,13 +7,15 @@ public class AIController : MonoBehaviour
     private float attackRange = 0.3f;
     [SerializeField]
     private float spreadRadius = 1f;
+    [SerializeField]
+    private float rotationSpeed = 1f;
 
     private NavMeshAgent navmMeshAgent;
     private Animator animator;
     private Collider aiCollider;
     private Vector3 lastTargetPosition;
+    [SerializeField]
     private Collider target;
-
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,15 @@ public class AIController : MonoBehaviour
     {
         if (GetDistanceToTargetCollider(target) <= attackRange)
         {
+            Vector3 targetDirection = target.transform.position - transform.position;
+            targetDirection.y = 0f;
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+            // Use Quaternion.Slerp to smoothly rotate towards the target
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            // Trigger the attack animation
             animator.SetTrigger("Attack");
         }
     }
