@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 66460033e451b7d49b4034476cc44a9b
+guid: 46917f00fdfef1b49b2ac7b53ca42cd7
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -89,7 +89,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: B_Root
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
@@ -97,7 +97,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
