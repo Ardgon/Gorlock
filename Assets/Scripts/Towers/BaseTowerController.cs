@@ -1,29 +1,31 @@
+using System;
 using UnityEngine;
 
-public class TowerController : MonoBehaviour
+public class BaseTowerController : MonoBehaviour
 {
     [SerializeField]
-    private float attackRange = 5f;
+    internal float attackRange = 5f;
     [SerializeField]
-    private float rotationSpeed = 5f;
+    internal float rotationSpeed = 5f;
     [SerializeField]
-    private LayerMask targetLayer;
+    internal LayerMask targetLayer;
     [SerializeField]
-    private float attackCooldown = 1f;
+    internal float attackCooldown = 1f;
     [SerializeField]
-    private float projectileSpeed = 15f;
+    internal float projectileSpeed = 15f;
     [SerializeField]
-    private GameObject projectilePrefab;
+    internal GameObject projectilePrefab;
     [SerializeField]
-    private Transform projectileSpawnPoint;
+    internal Transform projectileSpawnPoint;
     [SerializeField]
-    private float attackDamage = 1f;
+    internal float attackDamage = 1f;
+    [SerializeField]
+    internal bool blockRotation;
 
-    private float nextAttackTime;
-    private AIController attackTarget;
-    private Transform towerHingeTransform; // Transform to rotate tower model
+    internal float nextAttackTime;
+    internal AIController attackTarget;
+    internal Transform towerHingeTransform; // Transform to rotate tower model
 
-    public bool blockRotation;
 
     private void Start()
     {
@@ -77,24 +79,9 @@ public class TowerController : MonoBehaviour
         attackTarget = nearestTarget != null ? nearestTarget.GetComponent<AIController>() : null;
     }
 
-    private void Attack()
+    internal virtual void Attack()
     {
-        if (attackTarget == null
-            || Time.time < nextAttackTime
-            || Vector3.Distance(transform.position, attackTarget.transform.position) > attackRange)
-            return;
-
-        // Instantiate and shoot a projectile
-        GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
-        ProjectileController projectileController = projectile.GetComponent<ProjectileController>();
-
-        if (projectileController != null)
-        {
-            // Set the target for the projectile
-            projectileController.SetTarget(attackTarget.transform, projectileSpeed, attackDamage);
-        }
-
-        nextAttackTime = Time.time + attackCooldown;
+        throw new NotImplementedException("Attack should be called on a derived class");
     }
 
     private void OnDrawGizmosSelected()
