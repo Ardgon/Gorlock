@@ -6,11 +6,11 @@ using UnityEngine;
 [CreateAssetMenu]
 public class TowersDatabase_SO : ScriptableObject
 {
-    public List<TowerData> towerData;
+    public List<ObjectData> objectData;
 }
 
 [Serializable]
-public class TowerData
+public class ObjectData
 {
     [field: SerializeField]
     public string Name { get; private set; }
