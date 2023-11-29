@@ -1,15 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    private float speed = 15f;
-    Transform target;
-    private float damageToDeal;
     [SerializeField]
     private float distanceThreshold = 0.1f;
+    [SerializeField]
+    private List<GameObject> statusEffects = new();
+
+    private float speed = 15f;
+    private Transform target;
+    private float damageToDeal;
     private bool targetCenterMass = false;
     private Collider targetCollider;
-
     private Vector3? lastKnownTargetPosition = null;
 
     public void SetTarget(Transform newTarget, float speed, float damage, bool targetCenterMass = false)
@@ -18,50 +21,68 @@ public class ProjectileController : MonoBehaviour
         damageToDeal = damage;
         this.speed = speed;
         this.targetCenterMass = targetCenterMass;
-        targetCollider = target.GetComponent<Collider>();
+        targetCollider = target?.GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target == null && lastKnownTargetPosition == null)
+        if (!ValidateTarget())
         {
             Destroy(gameObject);
             return;
         }
 
-        Vector3 targetPosition;
+        Vector3 targetPosition = CalculateTargetPosition();
 
-        if (targetCenterMass && target != null)
+        MoveTowardsTarget(targetPosition);
+
+        CheckDistanceAndDealDamage(targetPosition);
+    }
+
+    private bool ValidateTarget()
+    {
+        return target != null || lastKnownTargetPosition != null;
+    }
+
+    private Vector3 CalculateTargetPosition()
+    {
+        if (targetCenterMass && target != null && targetCollider != null)
         {
-            if (targetCollider != null)
-            {
-                targetPosition = targetCollider.bounds.center;
-            }
-            else
-            {
-                targetPosition = target.position;
-            }
+            return targetCollider.bounds.center;
         }
         else
         {
-            targetPosition = target == null ? lastKnownTargetPosition.Value : target.position;
+            return target == null ? lastKnownTargetPosition.Value : target.position;
         }
+    }
 
+    private void MoveTowardsTarget(Vector3 targetPosition)
+    {
         Vector3 direction = (targetPosition - transform.position).normalized;
-
-        // Move the projectile towards the target
         transform.Translate(direction * speed * Time.deltaTime);
         lastKnownTargetPosition = targetPosition;
+    }
 
-        // Check if the projectile is close enough to the target
+    private void CheckDistanceAndDealDamage(Vector3 targetPosition)
+    {
         if (Vector3.Distance(transform.position, targetPosition) <= distanceThreshold)
         {
             if (target != null)
             {
                 target.GetComponent<Health>()?.TakeDamage(damageToDeal);
+                ApplyStatusEffects();
             }
+            
             Destroy(gameObject);
         }
+    }
+
+    private void ApplyStatusEffects()
+    {
+        foreach(var effect in statusEffects)
+        {
+            Instantiate(effect, target);
+        }        
     }
 }
