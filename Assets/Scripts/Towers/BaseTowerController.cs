@@ -23,7 +23,7 @@ public class BaseTowerController : MonoBehaviour
     internal bool blockRotation;
 
     internal float nextAttackTime;
-    internal AIController attackTarget;
+    internal Transform attackTarget;
     internal Transform towerHingeTransform; // Transform to rotate tower model
 
 
@@ -51,7 +51,7 @@ public class BaseTowerController : MonoBehaviour
         }
     }
 
-    private void DetectTarget()
+    internal virtual void DetectTarget()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange, targetLayer);
 
@@ -60,24 +60,25 @@ public class BaseTowerController : MonoBehaviour
 
         foreach (var collider in colliders)
         {
-            // Check if the collider has the AIController component
-            AIController aiController = collider.GetComponent<AIController>();
-
-            if (aiController != null)
+            // Skip colliders that belong to or are a child of this GameObject
+            if (collider.transform.IsChildOf(transform) || collider.transform == transform)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, collider.transform.position);
+                continue;
+            }
 
-                // Check if the current target is closer than the previous nearest target
-                if (distanceToTarget < nearestDistance)
-                {
-                    nearestTarget = collider.transform;
-                    nearestDistance = distanceToTarget;
-                }
+            float distanceToTarget = Vector3.Distance(transform.position, collider.transform.position);
+
+            // Check if the current target is closer than the previous nearest target
+            if (distanceToTarget < nearestDistance)
+            {
+                nearestTarget = collider.transform;
+                nearestDistance = distanceToTarget;
             }
         }
 
-        attackTarget = nearestTarget != null ? nearestTarget.GetComponent<AIController>() : null;
+        attackTarget = nearestTarget != null ? nearestTarget : null;
     }
+
 
     internal virtual void Attack()
     {

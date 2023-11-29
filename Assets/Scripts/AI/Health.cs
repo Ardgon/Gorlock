@@ -27,4 +27,9 @@ public class Health : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public float GetHitHpoint() 
+    { 
+        return currentHealth;
+    }
 }
