@@ -9,6 +9,8 @@ public class AIController : MonoBehaviour
     private float rotationSpeed = 1f;
     [SerializeField]
     private PriorityBase targetPriority;
+    [SerializeField]
+    private GameObject carrySlot;
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -17,8 +19,13 @@ public class AIController : MonoBehaviour
     private Collider target;
     private BaseStats baseStats;
     private float nextAttackTime;
-    private bool isCarrying;
+    private GameObject carriedObject;
     private WaveSpawner spawnPoint;
+
+    public void SetSpawnPoint(WaveSpawner spawnPoint)
+    {
+        this.spawnPoint = spawnPoint;
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -37,7 +44,7 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isCarrying)
+        if (carriedObject == null)
         {
             FindTarget();
         }            
@@ -85,9 +92,15 @@ public class AIController : MonoBehaviour
 
     private void Attack()
     {
+        if (carriedObject != null)
+        {
+            spawnPoint.LevelUp();
+            Destroy(carriedObject);
+            carriedObject = null;
+        }
+
         if (Time.time < nextAttackTime)
             return;
-
 
         Vector3 targetDirection = target.transform.position - transform.position;
         targetDirection.y = 0f;
@@ -97,18 +110,54 @@ public class AIController : MonoBehaviour
         // Use Quaternion.Slerp to smoothly rotate towards the target
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        // Trigger the attack animation
-        animator.SetTrigger("Attack");
-        // TODO: Deal Damage on animation callback currentStats.damage
         nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
 
-        if (target.GetComponent<CrumbFoodSource>() != null)
+        var crumb = target.GetComponent<CrumbFoodSource>();
+        if (crumb != null)
         {
             // Pick up crumb logic
+            target.transform.position = carrySlot.transform.position;
             target.gameObject.transform.parent = transform;
-            isCarrying = true;
+            Destroy(crumb);
+            crumb.GetComponent<NavMeshObstacle>().enabled = false;
+            crumb.GetComponent<Collider>().enabled = false;
+
+            carriedObject = target.gameObject;
+            navMeshAgent.avoidancePriority = 0;
             target = spawnPoint.GetComponent<Collider>();
+        } else
+        {
+            // Trigger the attack animation
+            animator.SetTrigger("Attack");
+            // TODO: Deal Damage on animation callback currentStats.damage
         }
+    }
+
+    public void DropCarriedObject()
+    {
+        if (carriedObject == null)
+            return;
+
+        // detach carried object
+        carriedObject.transform.SetParent(null);
+        NavMeshHit hit;
+        bool hasHit = NavMesh.SamplePosition(carriedObject.transform.position, out hit, 10f, NavMesh.AllAreas);
+
+        if (hasHit)
+        {
+            target.transform.position = hit.position;
+            carriedObject.AddComponent<CrumbFoodSource>();
+            carriedObject.GetComponent<NavMeshObstacle>().enabled = true;
+            carriedObject.GetComponent<Collider>().enabled = true;
+        }
+        else
+        {
+            Destroy(target);
+        }
+
+        carriedObject = null;
+        navMeshAgent.avoidancePriority = 50;
+        target = null;
     }
 
     private void UpdateAnimator()

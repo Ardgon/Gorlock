@@ -41,7 +41,7 @@ public class AISpawner : MonoBehaviour
                 {
                     spawnPosition = hit.position;
 
-                    Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+                    var spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
                     spawned = true;
                     break;
                 }
