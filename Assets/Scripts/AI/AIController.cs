@@ -39,7 +39,11 @@ public class AIController : MonoBehaviour
         FindTarget();
         MoveToTarget();
         UpdateAnimator();
-        Attack();
+        if (isInAttackRange())
+        {
+            RotateTowardsTarget();
+            Attack();
+        }       
     }
 
     private float GetDistanceToTargetCollider(Collider targetCollider)
@@ -60,10 +64,24 @@ public class AIController : MonoBehaviour
         return distance;
     }
 
+    private bool isInAttackRange()
+    {
+        return GetDistanceToTargetCollider(target) > baseStats.CurrentStats.attackRange;
+    }
+
+    private void RotateTowardsTarget()
+    {
+        Vector3 targetDirection = target.transform.position - transform.position;
+        targetDirection.y = 0f;
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+
     private void Attack()
     {
-        if (Time.time < nextAttackTime || (GetDistanceToTargetCollider(target) > baseStats.CurrentStats.attackRange))
+        if (Time.time < nextAttackTime)
             return;
+
 
         Vector3 targetDirection = target.transform.position - transform.position;
         targetDirection.y = 0f;
@@ -100,7 +118,8 @@ public class AIController : MonoBehaviour
 
         Vector2 randomCircle = Random.insideUnitCircle * spreadRadius;
         Vector3 offset = new Vector3(randomCircle.x, 0f, randomCircle.y);
-        Vector3 destination = targetPosition + offset;
+        // Set destination to closest point on the target's collider
+        Vector3 destination = target.ClosestPoint(targetPosition + offset);
 
         NavMeshHit hit;
         NavMesh.SamplePosition(destination, out hit, spreadRadius, NavMesh.AllAreas);

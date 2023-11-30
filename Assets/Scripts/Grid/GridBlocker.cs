@@ -15,7 +15,7 @@ public class GridBlocker : MonoBehaviour
     {
         placementSystem = FindObjectOfType<GridPlacementSystem>();
 
-        placementSystem.AddObject(gameObject, size, -1);
+        placementSystem.AddObject(gameObject, size, id);
     }
 
 }

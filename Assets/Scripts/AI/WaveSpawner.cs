@@ -52,6 +52,8 @@ public class WaveSpawner : MonoBehaviour
             {
                 readyToSpawnWave = true;
                 waveCooldown = waves[currentWaveIndex].timeToNextWave;
+                // Spawn crumbs before next wave
+                SpawnCrumbs();
                 StartCoroutine(SpawnWave());
             }
         }
@@ -131,9 +133,6 @@ public class WaveSpawner : MonoBehaviour
         readyToSpawnWave = false;
         waveCooldown = waves[currentWaveIndex].timeToNextWave;
         currentWaveIndex++;
-
-        // Spawn crumbs before next wave
-        SpawnCrumbs();
     }
 }
 
