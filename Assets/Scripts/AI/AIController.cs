@@ -1,10 +1,9 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
-    [SerializeField]
-    private float attackRange = 0.3f;
     [SerializeField]
     private float spreadRadius = 1f;
     [SerializeField]
@@ -14,8 +13,9 @@ public class AIController : MonoBehaviour
     private Animator animator;
     private Collider aiCollider;
     private Vector3 lastTargetPosition;
-    [SerializeField]
     private Collider target;
+    private BaseStats baseStats;
+    private float nextAttackTime;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,12 @@ public class AIController : MonoBehaviour
         navmMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         aiCollider = GetComponent<Collider>();
+        baseStats = GetComponent<BaseStats>();
+    }
+
+    private void SetLevel(int level)
+    {
+        baseStats.SetLevel(level);
     }
 
     // Update is called once per frame
@@ -54,19 +60,21 @@ public class AIController : MonoBehaviour
 
     private void Attack()
     {
-        if (GetDistanceToTargetCollider(target) <= attackRange)
-        {
-            Vector3 targetDirection = target.transform.position - transform.position;
-            targetDirection.y = 0f;
+        if (Time.time < nextAttackTime || (GetDistanceToTargetCollider(target) > baseStats.CurrentStats.attackRange))
+            return;
 
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        Vector3 targetDirection = target.transform.position - transform.position;
+        targetDirection.y = 0f;
 
-            // Use Quaternion.Slerp to smoothly rotate towards the target
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
-            // Trigger the attack animation
-            animator.SetTrigger("Attack");
-        }
+        // Use Quaternion.Slerp to smoothly rotate towards the target
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        // Trigger the attack animation
+        animator.SetTrigger("Attack");
+        // TODO: Deal Damage on animation callback currentStats.damage
+        nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
     }
 
     private void UpdateAnimator()
@@ -83,6 +91,8 @@ public class AIController : MonoBehaviour
     {
         if (target == null || Vector3.Distance(target.transform.position, lastTargetPosition) <= float.Epsilon)
             return;
+
+        navmMeshAgent.speed = baseStats.CurrentStats.movementSpeed;
 
         Vector3 targetPosition = target.transform.position;
 

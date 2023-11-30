@@ -10,6 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f04f76d841a5394b8a963d34dad01a4, type: 3}
-  m_Name: StatScaling
+  m_Name: EnemyStatScaling
   m_EditorClassIdentifier: 
-  characterScaling: []
+  characterScaling:
+  - characterType: 0
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5

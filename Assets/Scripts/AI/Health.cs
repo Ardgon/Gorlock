@@ -1,23 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField]
-    private float maxHealth = 100f;
     private float currentHealth;
+    private BaseStats baseStats;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        baseStats = GetComponent<BaseStats>();
+        currentHealth = baseStats.CurrentStats.maxHealth;
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float incomingDamage)
     {
-        currentHealth -= amount;
+        float actualDamage = incomingDamage - baseStats.CurrentStats.defense;
 
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        // Clamp damage dealt to [1, incomingDamange]
+        currentHealth -= Mathf.Clamp(actualDamage, 1f, incomingDamage);
+
+        currentHealth = Mathf.Clamp(currentHealth, 0, baseStats.CurrentStats.maxHealth);
     }
 
     public void Update()
@@ -32,4 +33,5 @@ public class Health : MonoBehaviour
     { 
         return currentHealth;
     }
+
 }

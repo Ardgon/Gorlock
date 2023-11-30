@@ -6,7 +6,7 @@ public class HealTowerController : BaseTowerController
     {
         if (attackTargets.Count != 1
             || Time.time < nextAttackTime
-            || Vector3.Distance(transform.position, attackTargets[0].transform.position) > attackRange)
+            || DistanceToTarget(attackTargets[0]) > baseStats.CurrentStats.attackRange)
             return;
 
         // Instantiate and shoot a projectile
@@ -16,9 +16,9 @@ public class HealTowerController : BaseTowerController
         if (projectileController != null)
         {
             // Set the target for the projectile
-            projectileController.SetTarget(attackTargets[0].transform, projectileSpeed, attackDamage, attackCenterMass);
+            projectileController.SetTarget(attackTargets[0].transform, projectileSpeed, baseStats.CurrentStats.damage, attackCenterMass);
         }
 
-        nextAttackTime = Time.time + attackCooldown;
+        nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
     }
 }

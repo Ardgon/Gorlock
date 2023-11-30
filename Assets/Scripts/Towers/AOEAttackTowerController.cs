@@ -7,7 +7,7 @@ public class AOEAttackTowerController : BaseTowerController
         if (Time.time < nextAttackTime)
             return;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange, targetLayer);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, baseStats.CurrentStats.attackRange, targetLayer);
 
         foreach (var collider in colliders)
         {
@@ -23,11 +23,11 @@ public class AOEAttackTowerController : BaseTowerController
                 if (projectileController != null)
                 {
                     // Set the target for the projectile
-                    projectileController.SetTarget(aiController.transform, projectileSpeed, attackDamage, attackCenterMass);
+                    projectileController.SetTarget(aiController.transform, projectileSpeed, baseStats.CurrentStats.damage, attackCenterMass);
                 }
             }
         }
 
-        nextAttackTime = Time.time + attackCooldown;
+        nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
     }
 }

@@ -25,17 +25,20 @@ public class LevelStats
     [field: SerializeField]
     public float movementSpeed;
     [field: SerializeField]
-    public float attackSpeed;
+    public float attackDelay;
     [field: SerializeField]
-    public float armor;
+    public float defense;
     [field: SerializeField]
     public float maxHealth;
     [field: SerializeField]
     public float damage;
+    [field: SerializeField]
+    public float attackRange;
 }
 
 [Serializable]
 public enum characterType
 {
-    WORKER_ANT, WARRIOR_ANT, VEGAN_ANT, TOMATO_TOWER, ONION_TOWER
+    WorkerAnt, WarriorAnt, ArmoredAnt, ToxicVeganAnt, VeganAnt, BoomerAnt, QueenAnt,
+    TomatoTower, LettuceTower, OnionTower, PickelTower, OliveTower, JalapenoTower
 }
