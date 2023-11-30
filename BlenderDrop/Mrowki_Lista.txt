@@ -65,3 +65,7 @@ Mechanika ogólna
 jeżeli mrówki nie mogą dojść nigdzie każda zatakuje struktury gracza
 podnieśnie okruszka spowania posiadacza o 10% (Wyjątek robotnica)
 okruszki zwiększa skalę per okruch
+
+20
+ 0 > 4
+ 
