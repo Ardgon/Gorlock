@@ -26,7 +26,7 @@ public class GridPlacementSystem : MonoBehaviour
     [SerializeField]
     private PlacementPreviewSystem preview;
 
-    private GridData gridObjectData;
+    private GridData gridObjectData = new();
 
     private List<GameObject> placedGameObjects = new();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
@@ -35,7 +35,6 @@ public class GridPlacementSystem : MonoBehaviour
     private void Awake()
     {
         StopPlacement();
-        gridObjectData = new();
     }
 
     public GameObject SpawnRandomlyOnGrid(int id, int attempts = 5)

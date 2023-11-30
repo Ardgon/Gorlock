@@ -11,7 +11,7 @@ public class AIController : MonoBehaviour
     [SerializeField]
     private PriorityBase targetPriority;
 
-    private NavMeshAgent navmMeshAgent;
+    private NavMeshAgent navMeshAgent;
     private Animator animator;
     private Collider aiCollider;
     private Vector3 lastTargetPosition;
@@ -22,7 +22,7 @@ public class AIController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        navmMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         aiCollider = GetComponent<Collider>();
         baseStats = GetComponent<BaseStats>();
@@ -58,6 +58,8 @@ public class AIController : MonoBehaviour
         Vector3 closestPointOnFirstCollider = aiCollider.ClosestPoint(targetCollider.bounds.center);
         Vector3 closestPointOnSecondCollider = targetCollider.ClosestPoint(aiCollider.bounds.center);
 
+        Debug.DrawLine(closestPointOnFirstCollider, closestPointOnSecondCollider, Color.red);
+
         // Calculate the distance between the closest points
         float distance = Vector3.Distance(closestPointOnFirstCollider, closestPointOnSecondCollider);
 
@@ -66,7 +68,7 @@ public class AIController : MonoBehaviour
 
     private bool isInAttackRange()
     {
-        return GetDistanceToTargetCollider(target) > baseStats.CurrentStats.attackRange;
+        return GetDistanceToTargetCollider(target) <= baseStats.CurrentStats.attackRange;
     }
 
     private void RotateTowardsTarget()
@@ -99,7 +101,7 @@ public class AIController : MonoBehaviour
 
     private void UpdateAnimator()
     {
-        animator.SetFloat("Speed", navmMeshAgent.velocity.magnitude);
+        animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
     }
 
     private void FindTarget()
@@ -112,7 +114,7 @@ public class AIController : MonoBehaviour
         if (target == null || Vector3.Distance(target.transform.position, lastTargetPosition) <= float.Epsilon)
             return;
 
-        navmMeshAgent.speed = baseStats.CurrentStats.movementSpeed;
+        navMeshAgent.speed = baseStats.CurrentStats.movementSpeed;
 
         Vector3 targetPosition = target.transform.position;
 
@@ -126,7 +128,7 @@ public class AIController : MonoBehaviour
 
         if (hit.hit)
         {
-            navmMeshAgent.SetDestination(hit.position);
+            navMeshAgent.SetDestination(hit.position);
             lastTargetPosition = target.transform.position;
         }
     }

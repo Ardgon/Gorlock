@@ -32,9 +32,6 @@ public class WaveSpawner : MonoBehaviour
                 enemyType.enemiesLeft = enemyType.amount;
             }
         }
-
-        // Spawn crumbs at the start of the game
-        SpawnCrumbs();
     }
 
     private void Update()

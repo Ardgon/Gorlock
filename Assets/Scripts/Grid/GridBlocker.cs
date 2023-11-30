@@ -11,7 +11,7 @@ public class GridBlocker : MonoBehaviour
     private GridPlacementSystem placementSystem;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         placementSystem = FindObjectOfType<GridPlacementSystem>();
 
