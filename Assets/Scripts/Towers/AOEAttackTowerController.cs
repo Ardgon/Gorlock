@@ -4,6 +4,8 @@ public class AOEAttackTowerController : BaseTowerController
 {
     internal override void Attack()
     {
+        base.Attack();
+
         if (Time.time < nextAttackTime)
             return;
 
