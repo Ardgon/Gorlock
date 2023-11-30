@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|ArmatureAction.001 (1)
-      takeName: Armature|ArmatureAction.001
+      name: Armature|ArmatureAction
+      takeName: Armature|ArmatureAction
       internalID: 4781951162920444690
       firstFrame: 0
-      lastFrame: 99
+      lastFrame: 0
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
