@@ -16,14 +16,14 @@ MonoBehaviour:
   - characterType: 0
     scaling:
     - level: 1
-      movementSpeed: 1.5
+      movementSpeed: 1.2
       attackDelay: 2
       defense: 0
       maxHealth: 60
       damage: 5
       attackRange: 1.4
     - level: 2
-      movementSpeed: 3
+      movementSpeed: 1.2
       attackDelay: 2
       defense: 0
       maxHealth: 80
@@ -32,11 +32,11 @@ MonoBehaviour:
   - characterType: 1
     scaling:
     - level: 2
-      movementSpeed: 3
+      movementSpeed: 0.8
       attackDelay: 2
       defense: 0
-      maxHealth: 100
-      damage: 1
+      maxHealth: 120
+      damage: 5
       attackRange: 1.5
   - characterType: 2
     scaling:
@@ -86,9 +86,9 @@ MonoBehaviour:
   - characterType: 7
     scaling:
     - level: 1
-      movementSpeed: 3
+      movementSpeed: 1
       attackDelay: 2
       defense: 0
-      maxHealth: 100
-      damage: 1
+      maxHealth: 70
+      damage: 5
       attackRange: 1.5

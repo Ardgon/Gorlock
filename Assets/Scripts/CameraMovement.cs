@@ -12,7 +12,7 @@ public class CameraMovement : MonoBehaviour
    // private float pitch = 0.0f;
     [Header("CameraSettings")]
     public float CameraSpeed;
-    
+    public float CameraScrollSpeed;
     // public float speedH = 2.0f;
     //public float speedV = 2.0f;
     // Start is called before the first frame update
@@ -46,11 +46,11 @@ public class CameraMovement : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f && CameraPosition.y > -1)
         {
-            CameraPosition += cameraForward * CameraSpeed * Time.deltaTime;
+            CameraPosition += cameraForward * CameraScrollSpeed * Time.deltaTime;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0f && CameraPosition.y < 5)
         {
-            CameraPosition -= cameraForward * CameraSpeed * Time.deltaTime;
+            CameraPosition -= cameraForward * CameraScrollSpeed * Time.deltaTime;
         }
 
 
