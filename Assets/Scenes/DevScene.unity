@@ -4597,6 +4597,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1226328853, guid: 11ef01c707c450c4a9dc3344fa589d8f, type: 3}
+      propertyPath: countdown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4239838083109912969, guid: 11ef01c707c450c4a9dc3344fa589d8f, type: 3}
       propertyPath: m_RootOrder
       value: 3

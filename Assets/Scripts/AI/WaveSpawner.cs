@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    [SerializeField] private float countdown;
+    [SerializeField] private float waveCooldown; // Time between waves
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private int crumbId;
     [SerializeField] private float enemySizeScalingMultiplier;
     public List<Wave> waves;
     public int currentWaveIndex = 0;
-    private bool readyToCountDown;
+    private bool readyToSpawnWave;
     private GridPlacementSystem gridPlacementSystem;
-    private int SpawnerLevel = 0;
+    private int spawnerLevel = 0;
 
     public void LevelUp()
     {
-        SpawnerLevel += 1;
+        spawnerLevel += 1;
     }
 
     private void Start()
     {
         gridPlacementSystem = FindObjectOfType<GridPlacementSystem>();
 
-        readyToCountDown = true;
+        readyToSpawnWave = true;
 
         // Init enemy spawn countdown
         foreach (var wave in waves)
@@ -34,7 +34,7 @@ public class WaveSpawner : MonoBehaviour
             }
         }
 
-        // Spawn crumbs at start of game
+        // Spawn crumbs at the start of the game
         SpawnCrumbs();
     }
 
@@ -45,16 +45,16 @@ public class WaveSpawner : MonoBehaviour
             return;
         }
 
-        if (readyToCountDown)
+        if (!readyToSpawnWave)
         {
-            countdown -= Time.deltaTime;
-        }
+            waveCooldown -= Time.deltaTime;
 
-        if (countdown <= 0)
-        {
-            readyToCountDown = false;
-            countdown = waves[currentWaveIndex].timeToNextWave;
-            StartCoroutine(SpawnWave());
+            if (waveCooldown <= 0)
+            {
+                readyToSpawnWave = true;
+                waveCooldown = waves[currentWaveIndex].timeToNextWave;
+                StartCoroutine(SpawnWave());
+            }
         }
     }
 
@@ -78,7 +78,6 @@ public class WaveSpawner : MonoBehaviour
             Debug.LogError("GridPlacementSystem not found!");
         }
     }
-
 
     private IEnumerator SpawnWave()
     {
@@ -110,13 +109,13 @@ public class WaveSpawner : MonoBehaviour
 
         List<WaveEnemyType> spawnOrder = new List<WaveEnemyType>(spawnSequence);
 
-        foreach (WaveEnemyType enemyType in spawnOrder)
+        foreach (var enemyType in spawnOrder)
         {
             // Spawn enemy
             GameObject spawnedEnemy = Instantiate(enemyType.enemyType, spawnPoint.transform.position, spawnPoint.transform.rotation);
 
-            spawnedEnemy.GetComponent<AIController>().SetLevel(enemyType.baseLevel + SpawnerLevel);
-            spawnedEnemy.transform.localScale += (enemySizeScalingMultiplier * SpawnerLevel * Vector3.one);
+            spawnedEnemy.GetComponent<AIController>().SetLevel(enemyType.baseLevel + spawnerLevel);
+            spawnedEnemy.transform.localScale += (enemySizeScalingMultiplier * spawnerLevel * Vector3.one);
 
             // Reduce enemiesLeft for that enemy type by 1
             enemyType.enemiesLeft--;
@@ -129,8 +128,9 @@ public class WaveSpawner : MonoBehaviour
                 continue; // Skip to the next enemy type if all are spawned
         }
 
-        // Reset countdown for the next wave
-        readyToCountDown = true;
+        // Reset cooldown for the next wave
+        readyToSpawnWave = false;
+        waveCooldown = waves[currentWaveIndex].timeToNextWave;
         currentWaveIndex++;
 
         // Spawn crumbs before next wave

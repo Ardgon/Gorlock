@@ -20,7 +20,7 @@ public class AIController : MonoBehaviour
     private float nextAttackTime;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         navmMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
