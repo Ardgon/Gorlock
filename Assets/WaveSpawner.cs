@@ -103,6 +103,7 @@ public class Wave
     public List<WaveEnemyType> enemies;
     public float timeToNextEnemy;
     public float timeToNextWave;
+    public int numberOfCrumbs;
 }
 
 [System.Serializable]
