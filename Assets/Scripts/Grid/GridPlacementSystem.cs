@@ -47,6 +47,8 @@ public class GridPlacementSystem : MonoBehaviour
             Vector3 playingGridSize = gridVisualization.transform.localScale * 10;
             playingGridSize.y = 0;
             Vector3 playingGridBottomLeft = gridVisualization.transform.position - (playingGridSize / 2);
+            Debug.DrawLine(playingGridBottomLeft, playingGridBottomLeft + Vector3.up * 10f, UnityEngine.Color.red, 100f);
+
 
             // Generate random position within the grid
             Vector3Int randomGrid = new Vector3Int(
@@ -55,7 +57,7 @@ public class GridPlacementSystem : MonoBehaviour
                 UnityEngine.Random.Range(0, (int)playingGridSize.z));
 
             // Spawn prefab with random rotation
-            Vector3 worldPosition = grid.GetCellCenterWorld(randomGrid) + playingGridBottomLeft;
+            Vector3 worldPosition = randomGrid + playingGridBottomLeft;
             Vector3Int gridPosition = grid.WorldToCell(worldPosition);
 
             // Check if the position is valid for placement
@@ -63,7 +65,8 @@ public class GridPlacementSystem : MonoBehaviour
             {
                 float randomRotationY = UnityEngine.Random.Range(0f, 360f);
 
-                GameObject spawnedObject = Instantiate(prefabToSpawn, worldPosition, Quaternion.identity);
+                Vector3 placementPosition = OffestPositionToCellCenter(worldPosition);
+                GameObject spawnedObject = Instantiate(prefabToSpawn, placementPosition, Quaternion.identity);
                 spawnedObject.transform.rotation = Quaternion.Euler(0f, randomRotationY, 0f);
 
                 AddObject(spawnedObject, size, id);
@@ -115,19 +118,21 @@ public class GridPlacementSystem : MonoBehaviour
             return;
 
         GameObject newObject = Instantiate(database.objectData[selectedObjectIndex].Prefab);
-        newObject.transform.position = grid.CellToWorld(gridPosition);
+        Vector3 placementPosition = OffestPositionToCellCenter(grid.CellToWorld(gridPosition));
+        newObject.transform.position = placementPosition;
 
         if (rotated)
         {
             newObject.transform.Rotate(0f, -90f, 0f);
-            newObject.transform.position = new Vector3(
-                newObject.transform.position.x + 1,
-                newObject.transform.position.y,
-                newObject.transform.position.z);
         }
 
         AddObject(newObject, GetSize(), database.objectData[selectedObjectIndex].ID);
-        preview.UpdatePosition(grid.CellToWorld(gridPosition), false); 
+        preview.UpdatePosition(placementPosition, false, GetSize()); 
+    }
+
+    public Vector3 OffestPositionToCellCenter(Vector3 worldPosition)
+    {
+        return new Vector3(worldPosition.x + 0.5f, worldPosition.y, worldPosition.z + 0.5f);
     }
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, Vector2Int size)
@@ -175,7 +180,8 @@ public class GridPlacementSystem : MonoBehaviour
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
         bool placementValidity = CheckPlacementValidity(gridPosition, GetSize());
-        preview.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+        Vector3 placementPosition = OffestPositionToCellCenter(grid.CellToWorld(gridPosition));
+        preview.UpdatePosition(placementPosition, placementValidity, GetSize());
         lastDetectedPosition = gridPosition;
     }
 }

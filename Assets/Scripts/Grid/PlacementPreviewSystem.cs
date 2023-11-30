@@ -78,10 +78,10 @@ public class PlacementPreviewSystem : MonoBehaviour
         Destroy(previewObject);
     }
 
-    public void UpdatePosition(Vector3 position, bool validity)
+    public void UpdatePosition(Vector3 position, bool validity, Vector2Int size)
     {
         MovePreview(position);
-        MoveCursor(position);
+        MoveCursor(position, size);
         ApplyFeedback(validity);
     }
 
@@ -93,16 +93,18 @@ public class PlacementPreviewSystem : MonoBehaviour
         previewMaterialInstance.color = color;
     }
 
-    private void MoveCursor(Vector3 position)
+    private void MoveCursor(Vector3 position, Vector2Int size)
     {
+        float xOffset = Mathf.Floor(size.x / 2);
+        float zOffset = Mathf.Floor(size.y / 2);
+        position.x += xOffset;
+        position.z += zOffset;
         cellIndicator.transform.position = position;
     }
 
     private void MovePreview(Vector3 position)
     {
-        Vector3 placementPosition = new Vector3(position.x, position.y + previewYOffset, position.z);
-        if (rotated)
-            placementPosition.x += 1;
+        Vector3 placementPosition = new Vector3(position.x + 0, position.y + previewYOffset, position.z);
         previewObject.transform.position = placementPosition;
     }
 }
