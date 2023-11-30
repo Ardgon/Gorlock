@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class ProjectileTowerController : BaseTowerController
 {
+    internal override bool IsReadyToAttack()
+    {
+        return attackTargets.Count == 1
+            && Time.time >= nextAttackTime
+            && DistanceToTarget(attackTargets[0]) <= baseStats.CurrentStats.attackRange;
+    }
     internal override void Attack()
     {
         base.Attack();
-
-        if (attackTargets.Count != 1
-            || Time.time < nextAttackTime
-            || DistanceToTarget(attackTargets[0]) > baseStats.CurrentStats.attackRange)
-            return;
 
         // Instantiate and shoot a projectile
         GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);

@@ -50,7 +50,8 @@ public class BaseTowerController : MonoBehaviour
 
     private void PrepareAttack()
     {
-        animator.SetTrigger("Attack");
+        if (IsReadyToAttack())
+            animator.SetTrigger("Attack");
     }
 
     private void RotateTowardsTarget()
@@ -90,6 +91,11 @@ public class BaseTowerController : MonoBehaviour
     // Called from animation event
     internal virtual void Attack()
     {
+    }
+
+    internal virtual bool IsReadyToAttack()
+    {
+        return false;
     }
 
     private void OnDrawGizmosSelected()

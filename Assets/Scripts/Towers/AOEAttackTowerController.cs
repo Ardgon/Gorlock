@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class AOEAttackTowerController : BaseTowerController
 {
+    internal override bool IsReadyToAttack()
+    {
+        return Time.time >= nextAttackTime;
+    }
     internal override void Attack()
     {
         base.Attack();
-
-        if (Time.time < nextAttackTime)
-            return;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, baseStats.CurrentStats.attackRange, targetLayer);
 
