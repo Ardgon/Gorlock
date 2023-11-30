@@ -22,3 +22,57 @@ MonoBehaviour:
       maxHealth: 100
       damage: 1
       attackRange: 1.5
+  - characterType: 1
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5
+  - characterType: 2
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5
+  - characterType: 3
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5
+  - characterType: 4
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5
+  - characterType: 5
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5
+  - characterType: 6
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5

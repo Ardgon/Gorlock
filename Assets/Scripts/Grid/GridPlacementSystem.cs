@@ -32,6 +32,7 @@ public class GridPlacementSystem : MonoBehaviour
         gridObjectData = new();
     }
 
+    // Called From UI Button
     public void StartPlacement(int ID)
     {
         StopPlacement();
