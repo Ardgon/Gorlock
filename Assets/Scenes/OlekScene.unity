@@ -216,12 +216,12 @@ Transform:
   m_LocalScale: {x: 1.5303, y: 1.5303, z: 1.5303}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1993036999}
   - {fileID: 189678404}
   - {fileID: 369749148}
   - {fileID: 175626719}
   - {fileID: 654582807}
   - {fileID: 1173436310}
-  - {fileID: 1993036999}
   - {fileID: 1837684991}
   - {fileID: 1597530096}
   - {fileID: 1446413362}
@@ -2750,7 +2750,7 @@ PrefabInstance:
     - target: {fileID: 8437877935214507104, guid: cb1052d0072792148a827f12909ceca3, type: 3}
       propertyPath: enemyPrefab
       value: 
-      objectReference: {fileID: 189670043823367592, guid: e39e1e33806795c4d83e62c0d6782a38, type: 3}
+      objectReference: {fileID: 5556313048867780834, guid: 79fef2dda18d47d4b92e5a2cd8a04160, type: 3}
     - target: {fileID: 8437877935214507104, guid: cb1052d0072792148a827f12909ceca3, type: 3}
       propertyPath: spawnRadius
       value: 2
@@ -3780,7 +3780,7 @@ PrefabInstance:
     - target: {fileID: 8437877935214507104, guid: cb1052d0072792148a827f12909ceca3, type: 3}
       propertyPath: enemyPrefab
       value: 
-      objectReference: {fileID: 7275124001768096098, guid: b8021ea842970ed48bb92120e3e11cd1, type: 3}
+      objectReference: {fileID: 8094227316443400799, guid: b64d721c038b9ba429d2a55336a326d8, type: 3}
     - target: {fileID: 8437877935214507104, guid: cb1052d0072792148a827f12909ceca3, type: 3}
       propertyPath: spawnRadius
       value: 0.2
@@ -7158,7 +7158,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 57564130}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2025975221
 GameObject:

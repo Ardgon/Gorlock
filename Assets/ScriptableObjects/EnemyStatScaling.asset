@@ -76,3 +76,12 @@ MonoBehaviour:
       maxHealth: 100
       damage: 1
       attackRange: 1.5
+  - characterType: 7
+    scaling:
+    - level: 1
+      movementSpeed: 3
+      attackDelay: 2
+      defense: 0
+      maxHealth: 100
+      damage: 1
+      attackRange: 1.5
