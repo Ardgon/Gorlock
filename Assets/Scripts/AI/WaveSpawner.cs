@@ -22,8 +22,7 @@ public class WaveSpawner : MonoBehaviour
     private void Start()
     {
         gridPlacementSystem = FindObjectOfType<GridPlacementSystem>();
-
-        readyToSpawnWave = true;
+        readyToSpawnWave = false;
 
         // Init enemy spawn countdown
         foreach (var wave in waves)
