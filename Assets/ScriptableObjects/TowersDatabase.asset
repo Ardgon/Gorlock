@@ -33,3 +33,7 @@ MonoBehaviour:
     <ID>k__BackingField: 4
     <Size>k__BackingField: {x: 3, y: 1}
     <Prefab>k__BackingField: {fileID: 3730525798224532596, guid: 4051bf8654f71944380fb9da2a5d82d6, type: 3}
+  - <Name>k__BackingField: Crumb
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 4448189564512865679, guid: d488494bb1aec39418f21739a3587ad0, type: 3}

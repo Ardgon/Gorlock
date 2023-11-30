@@ -6,13 +6,18 @@ public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private float countdown;
     [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private int crumbId;
     public List<Wave> waves;
     public int currentWaveIndex = 0;
     private bool readyToCountDown;
+    private GridPlacementSystem gridPlacementSystem;
 
     private void Start()
     {
+        gridPlacementSystem = FindObjectOfType<GridPlacementSystem>();
+
         readyToCountDown = true;
+        countdown = waves[currentWaveIndex].timeToNextWave;
 
         // Init enemy spawn countdown
         foreach (var wave in waves)
@@ -22,13 +27,15 @@ public class WaveSpawner : MonoBehaviour
                 enemyType.enemiesLeft = enemyType.amount;
             }
         }
+
+        // Spawn crumbs at start of game
+        SpawnCrumbs();
     }
 
     private void Update()
     {
         if (currentWaveIndex >= waves.Count)
         {
-            Debug.Log("END GAME");
             return;
         }
 
@@ -44,6 +51,28 @@ public class WaveSpawner : MonoBehaviour
             StartCoroutine(SpawnWave());
         }
     }
+
+    private void SpawnCrumbs()
+    {
+        if (gridPlacementSystem != null)
+        {
+            for (int i = 0; i < waves[currentWaveIndex].numberOfCrumbs; i++)
+            {
+                var instantiatedCrumb = gridPlacementSystem.SpawnRandomlyOnGrid(crumbId);
+
+                if (!instantiatedCrumb)
+                {
+                    // If the position is not valid, decrement the loop counter to try again
+                    i--;
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("GridPlacementSystem not found!");
+        }
+    }
+
 
     private IEnumerator SpawnWave()
     {
@@ -94,6 +123,9 @@ public class WaveSpawner : MonoBehaviour
         // Reset countdown for the next wave
         readyToCountDown = true;
         currentWaveIndex++;
+
+        // Spawn crumbs before next wave
+        SpawnCrumbs();
     }
 }
 
