@@ -19,6 +19,9 @@ public class GridPlacementSystem : MonoBehaviour
     private GameObject gridVisualization;
 
     [SerializeField]
+    private TowerSelectionSystem selectionSystem;
+
+    [SerializeField]
     private PlacementPreviewSystem preview;
 
     private GridData gridObjectData;
@@ -35,6 +38,9 @@ public class GridPlacementSystem : MonoBehaviour
     // Called From UI Button
     public void StartPlacement(int ID)
     {
+        // Deactivate Selection mode when placing
+        selectionSystem.DeactivateSelect();
+
         StopPlacement();
         selectedObjectIndex = database.objectData.FindIndex(data => data.ID == ID);
         if (selectedObjectIndex < 0)
