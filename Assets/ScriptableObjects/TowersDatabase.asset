@@ -29,3 +29,7 @@ MonoBehaviour:
     <ID>k__BackingField: 3
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 1389846613633234887, guid: 8cca5250f56cacf4cbb554888b627cf1, type: 3}
+  - <Name>k__BackingField: "Oni\xF3n"
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 3, y: 1}
+    <Prefab>k__BackingField: {fileID: 3730525798224532596, guid: 4051bf8654f71944380fb9da2a5d82d6, type: 3}

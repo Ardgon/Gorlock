@@ -17,6 +17,8 @@ public class PlacementPreviewSystem : MonoBehaviour
     private Material previewMaterialInstance;
 
     private Renderer cellIndicatorRenderer;
+    private bool rotated;
+
 
     private void Start()
     {
@@ -25,9 +27,15 @@ public class PlacementPreviewSystem : MonoBehaviour
         cellIndicatorRenderer = cellIndicator.GetComponentInChildren<Renderer>();
     }
 
-    public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
+    public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size, bool rotated)
     {
         previewObject = Instantiate(prefab);
+        this.rotated = rotated;
+
+        if (rotated)
+        {
+            previewObject.transform.Rotate(0f, -90f, 0f);
+        }
 
         // Disable Collider and NavMeshObstacles
         Collider[] previewObjectColliders = GetComponentsInChildren<Collider>();
@@ -94,6 +102,9 @@ public class PlacementPreviewSystem : MonoBehaviour
 
     private void MovePreview(Vector3 position)
     {
-        previewObject.transform.position = new Vector3(position.x, position.y+previewYOffset, position.z);
+        Vector3 placementPosition = new Vector3(position.x, position.y + previewYOffset, position.z);
+        if (rotated)
+            placementPosition.x += 1;
+        previewObject.transform.position = placementPosition;
     }
 }

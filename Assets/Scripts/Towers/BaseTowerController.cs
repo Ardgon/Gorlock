@@ -73,6 +73,9 @@ public class BaseTowerController : MonoBehaviour
     {
         if (!continuousTargetting && Time.time < nextAttackTime)
             return;
+        
+        if (targetComponent == null)
+            return;
 
         attackTargets = targetComponent.DetectTargets(baseStats.CurrentStats.attackRange, targetLayer);
     }
@@ -80,7 +83,6 @@ public class BaseTowerController : MonoBehaviour
 
     internal virtual void Attack()
     {
-        throw new NotImplementedException("Attack should be called on a derived class");
     }
 
     private void OnDrawGizmosSelected()

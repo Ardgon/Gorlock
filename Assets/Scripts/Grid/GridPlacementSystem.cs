@@ -28,6 +28,7 @@ public class GridPlacementSystem : MonoBehaviour
 
     private List<GameObject> placedGameObjects = new();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
+    private bool rotated;
 
     private void Start()
     {
@@ -49,7 +50,7 @@ public class GridPlacementSystem : MonoBehaviour
             return;
         }
         gridVisualization.SetActive(true);
-        preview.StartShowingPlacementPreview(database.objectData[selectedObjectIndex].Prefab, database.objectData[selectedObjectIndex].Size);
+        preview.StartShowingPlacementPreview(database.objectData[selectedObjectIndex].Prefab, GetSize(), rotated);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
@@ -64,19 +65,40 @@ public class GridPlacementSystem : MonoBehaviour
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-        if (!CheckPlacementValidity(gridPosition, selectedObjectIndex))
+        if (!CheckPlacementValidity(gridPosition))
             return;
 
         GameObject newObject = Instantiate(database.objectData[selectedObjectIndex].Prefab);
         newObject.transform.position = grid.CellToWorld(gridPosition);
+
+        if (rotated)
+        {
+            newObject.transform.Rotate(0f, -90f, 0f);
+            newObject.transform.position = new Vector3(
+                newObject.transform.position.x + 1,
+                newObject.transform.position.y,
+                newObject.transform.position.z);
+        }
+
         placedGameObjects.Add(newObject);
-        gridObjectData.AddObjectAt(gridPosition, database.objectData[selectedObjectIndex].Size, database.objectData[selectedObjectIndex].ID, placedGameObjects.Count - 1);
+        gridObjectData.AddObjectAt(gridPosition, GetSize(), database.objectData[selectedObjectIndex].ID, placedGameObjects.Count - 1);
         preview.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 
-    private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
+    private bool CheckPlacementValidity(Vector3Int gridPosition)
     {
-        return gridObjectData.CanPlaceObjectAt(gridPosition, database.objectData[selectedObjectIndex].Size);
+        return gridObjectData.CanPlaceObjectAt(gridPosition, GetSize());
+    }
+
+    private Vector2Int GetSize()
+    {
+        if (rotated)
+        {
+            return new Vector2Int(database.objectData[selectedObjectIndex].Size.y,
+                database.objectData[selectedObjectIndex].Size.x);
+        }
+
+        return database.objectData[selectedObjectIndex].Size;
     }
 
     private void StopPlacement()
@@ -97,13 +119,17 @@ public class GridPlacementSystem : MonoBehaviour
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            rotated = !rotated;
+            preview.StopShowingPreview();
+            preview.StartShowingPlacementPreview(database.objectData[selectedObjectIndex].Prefab, GetSize(), rotated);
+        }
+
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-        if (lastDetectedPosition == gridPosition)
-            return;
-
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+        bool placementValidity = CheckPlacementValidity(gridPosition);
         preview.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
         lastDetectedPosition = gridPosition;
     }
