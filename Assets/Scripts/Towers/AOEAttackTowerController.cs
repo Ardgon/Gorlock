@@ -8,6 +8,9 @@ public class AOEAttackTowerController : BaseTowerController
     }
     internal override void Attack()
     {
+        if (attackTargets.Count < 1)
+            return;
+
         base.Attack();
 
         foreach (Transform target in attackTargets)

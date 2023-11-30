@@ -114,6 +114,7 @@ public class WaveSpawner : MonoBehaviour
 
             spawnedEnemy.GetComponent<AIController>().SetLevel(enemyType.baseLevel + spawnerLevel);
             spawnedEnemy.transform.localScale += (enemySizeScalingMultiplier * spawnerLevel * Vector3.one);
+            spawnedEnemy.GetComponent<AIController>().SetSpawnPoint(this);
 
             // Reduce enemiesLeft for that enemy type by 1
             enemyType.enemiesLeft--;
