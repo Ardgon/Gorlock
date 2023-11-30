@@ -39,6 +39,6 @@ public class LevelStats
 [Serializable]
 public enum characterType
 {
-    WorkerAnt, WarriorAnt, ArmoredAnt, ToxicVeganAnt, VeganAnt, BoomerAnt, QueenAnt,
+    WorkerAnt, WarriorAnt, ArmoredAnt, ToxicVeganAnt, VeganAnt, BoomerAnt, QueenAnt, BasicAnt,
     TomatoTower, LettuceTower, OnionTower, PickelTower, OliveTower, JalapenoTower, FrenchFryTower
 }
