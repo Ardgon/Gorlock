@@ -8,6 +8,8 @@ public class AIController : MonoBehaviour
     private float spreadRadius = 1f;
     [SerializeField]
     private float rotationSpeed = 1f;
+    [SerializeField]
+    private PriorityBase targetPriority;
 
     private NavMeshAgent navmMeshAgent;
     private Animator animator;
@@ -84,7 +86,7 @@ public class AIController : MonoBehaviour
 
     private void FindTarget()
     {
-        target = FindObjectOfType<FoodSource>()?.GetComponent<Collider>();
+        target = targetPriority.FindTarget();
     }
 
     private void MoveToTarget()
