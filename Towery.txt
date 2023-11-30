@@ -1,0 +1,54 @@
+Zmiana systemu:
+Dostajemy w losowym sklepie ulepszenia i podstawowe towery.
+Po 3 upgrade'ach włożonych w tower można wybrać moc specjalną
+
+Pomidor:
+Ranged DPS
+Podstawowy tower strzela żółtą pestką, która zadaje solidne obrażenia.
+Ulepszenia:
+Splash Tower - Wypuszcza pestki z za dużą ilością soku, który zadaje dmg wokół trafionego celu.
+Sniper - Nasiono w soku bardziej penetruje pojedyńczy cel.
+
+Sałata: Do testowania 
+Support Buffer
+Podstawowa wersja podczas strzelania w przeciwnika tymczasowo przyśpiesza prędkość ataku losowego nie zbufowanego towera.
+Ulepszenia:
+AOE Buff- Nakłada efekt przyśpieszenia na więcej wież naraz.
+BIG BUFF- Atakuje szybciej. Może nałożyć efekt przyśpieszenia parę razy na ten sam cel.
+
+Cebula: 
+Melee DPS
+Podstawowa wersja wypuszcza dymek, który zadaje obrażenia w okolicy.
+Ulepszenia:
+Komora gazowa- Wypuszcza bardziej intensywny dym, który zadaje więcej obrażeń i ma szanse zatruć przeciwnika.
+Twarda sztuka- Prowokuje przeciwników do atakowania ulepszonej cebuli i staje się wytrzymalsza
+
+Pickel Rick
+Support Debuffer
+Podstawowa wersja spowalnia trafionego przeciwnika i zostawia spowalniającą plamę. Spowolnienie działa przez parę sekund po wyjściu z plamy.
+Ulepszenia:
+Mokry ogór- Wypuszcza bardziej intensywną plamę, która mocniej spowalnia przeciwnika i pozostawia efekt spowolnienia na dłużej.
+Kwaśny- Pickel zadaje DOT i ściąga część pancerza z przeciwnika.
+
+Oliwka:
+Healer
+Leczy najbardziej rannego sujusznika.
+Ulepszenia:
+Panzer - Więcej leczy najbardziej rannego sojusznika i daje mu pancerz.
+Laser- Ciągle leczy najbardziej rannego sojusznika laserem, który ma więcej ticków/sec
+
+Jalapeño:
+Specialist Tower
+Podstawowa wersja wypuszcza ognistą kulę jak moździeż, która zadaje obrażenia obszarowe. Ma szanse na podpalenie
+Ulepszenia:
+Napalm- Pociski możdzieżowe zostawiają ogniste plany, które zadają obrażenia w czasie.
+Flammenwerfer- Nie strzela już jak moździeż tylko zostaje palnikiem ognia. Nakłada efekty podpalenia. Podczas ataku ciągle odświeża efekt podpalenia. 
+Po odświeżeniu podpalenia detonuje poprzednie podpalenie i zadaje burst w wysokości X% całości poprzedniego podpalenia.
+
+Kukurydza: DLC
+Minionspawner
+Soon Tm
+
+Kalafior: DLC
+Kręci swoimi liśćmi w okolicy odpychając przeciwników do tyłu
+Soon Tm
