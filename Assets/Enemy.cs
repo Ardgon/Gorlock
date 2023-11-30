@@ -18,15 +18,5 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.forward * speed * Time.deltaTime);
-
-        countdown -= Time.deltaTime;
-
-        if (countdown <= 0)
-        {
-            Destroy(gameObject);
-
-            waveSpawner.waves[waveSpawner.currentWaveIndex].enemiesLeft--;
-        }
     }
 }
