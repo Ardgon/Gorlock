@@ -7,10 +7,17 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float countdown;
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private int crumbId;
+    [SerializeField] private float enemySizeScalingMultiplier;
     public List<Wave> waves;
     public int currentWaveIndex = 0;
     private bool readyToCountDown;
     private GridPlacementSystem gridPlacementSystem;
+    private int SpawnerLevel = 0;
+
+    public void LevelUp()
+    {
+        SpawnerLevel += 1;
+    }
 
     private void Start()
     {
@@ -104,10 +111,13 @@ public class WaveSpawner : MonoBehaviour
 
         List<WaveEnemyType> spawnOrder = new List<WaveEnemyType>(spawnSequence);
 
-        foreach (var enemyType in spawnOrder)
+        foreach (WaveEnemyType enemyType in spawnOrder)
         {
             // Spawn enemy
-            Instantiate(enemyType.enemyType, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            GameObject spawnedEnemy = Instantiate(enemyType.enemyType, spawnPoint.transform.position, spawnPoint.transform.rotation);
+
+            spawnedEnemy.GetComponent<AIController>().SetLevel(enemyType.baseLevel + SpawnerLevel);
+            spawnedEnemy.transform.localScale += (enemySizeScalingMultiplier * SpawnerLevel * Vector3.one);
 
             // Reduce enemiesLeft for that enemy type by 1
             enemyType.enemiesLeft--;

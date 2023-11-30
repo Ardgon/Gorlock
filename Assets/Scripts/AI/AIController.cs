@@ -28,7 +28,7 @@ public class AIController : MonoBehaviour
         baseStats = GetComponent<BaseStats>();
     }
 
-    private void SetLevel(int level)
+    public void SetLevel(int level)
     {
         baseStats.SetLevel(level);
     }
