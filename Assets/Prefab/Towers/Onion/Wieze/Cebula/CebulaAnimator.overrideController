@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CebulaAnimator
+  m_Controller: {fileID: 9100000, guid: 045a02ceaa5b1704fb11a42b9cda95b4, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -623603649343465320, guid: bed0f6c44e75028418f589437aa1eaaa, type: 3}
+    m_OverrideClip: {fileID: 4781951162920444690, guid: ce11da248b599194a9ca25b528214538, type: 3}
+  - m_OriginalClip: {fileID: -623603649343465320, guid: 3a2b241ab336e1742bf1b54bb6d2b9e5, type: 3}
+    m_OverrideClip: {fileID: -623603649343465320, guid: 311d7d44fb69ba44898a234878402b26, type: 3}
