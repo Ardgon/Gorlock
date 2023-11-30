@@ -21,7 +21,7 @@ MonoBehaviour:
       defense: 0
       maxHealth: 100
       damage: 1
-      attackRange: 1.5
+      attackRange: 2
   - characterType: 1
     scaling:
     - level: 1
