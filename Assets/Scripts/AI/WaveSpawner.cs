@@ -24,7 +24,6 @@ public class WaveSpawner : MonoBehaviour
         gridPlacementSystem = FindObjectOfType<GridPlacementSystem>();
 
         readyToCountDown = true;
-        countdown = waves[currentWaveIndex].timeToNextWave;
 
         // Init enemy spawn countdown
         foreach (var wave in waves)
