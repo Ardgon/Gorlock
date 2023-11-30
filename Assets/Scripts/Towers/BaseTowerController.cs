@@ -45,7 +45,12 @@ public class BaseTowerController : MonoBehaviour
     {
         DetectTarget();
         RotateTowardsTarget();
-        Attack();
+        PrepareAttack();
+    }
+
+    private void PrepareAttack()
+    {
+        animator.SetTrigger("Attack");
     }
 
     private void RotateTowardsTarget()
@@ -82,10 +87,9 @@ public class BaseTowerController : MonoBehaviour
         attackTargets = targetComponent.DetectTargets(baseStats.CurrentStats.attackRange, targetLayer);
     }
 
-
+    // Called from animation event
     internal virtual void Attack()
     {
-        animator.SetTrigger("Attack");
     }
 
     private void OnDrawGizmosSelected()
