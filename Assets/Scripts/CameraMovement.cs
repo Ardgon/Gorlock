@@ -46,6 +46,7 @@ public class CameraMovement : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f && CameraPosition.y > -1)
         {
+
             CameraPosition += cameraForward * CameraScrollSpeed * Time.deltaTime;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0f && CameraPosition.y < 5)
