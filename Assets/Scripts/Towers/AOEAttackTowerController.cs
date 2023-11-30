@@ -4,18 +4,16 @@ public class AOEAttackTowerController : BaseTowerController
 {
     internal override bool IsReadyToAttack()
     {
-        return Time.time >= nextAttackTime;
+        return Time.time >= nextAttackTime && attackTargets.Count > 0;
     }
     internal override void Attack()
     {
         base.Attack();
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, baseStats.CurrentStats.attackRange, targetLayer);
-
-        foreach (var collider in colliders)
+        foreach (Transform target in attackTargets)
         {
             // Check if the collider has the AIController component
-            AIController aiController = collider.GetComponent<AIController>();
+            AIController aiController = target.GetComponent<AIController>();
 
             if (aiController != null)
             {

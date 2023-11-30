@@ -1,4 +1,3 @@
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +17,8 @@ public class AIController : MonoBehaviour
     private Collider target;
     private BaseStats baseStats;
     private float nextAttackTime;
+    private bool isCarrying;
+    private WaveSpawner spawnPoint;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,7 +37,10 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindTarget();
+        if (!isCarrying)
+        {
+            FindTarget();
+        }            
         MoveToTarget();
         UpdateAnimator();
         if (isInAttackRange())
@@ -97,6 +101,14 @@ public class AIController : MonoBehaviour
         animator.SetTrigger("Attack");
         // TODO: Deal Damage on animation callback currentStats.damage
         nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
+
+        if (target.GetComponent<CrumbFoodSource>() != null)
+        {
+            // Pick up crumb logic
+            target.gameObject.transform.parent = transform;
+            isCarrying = true;
+            target = spawnPoint.GetComponent<Collider>();
+        }
     }
 
     private void UpdateAnimator()
