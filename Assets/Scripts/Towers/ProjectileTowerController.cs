@@ -10,6 +10,9 @@ public class ProjectileTowerController : BaseTowerController
     }
     internal override void Attack()
     {
+        if (attackTargets.Count < 1)
+            return;
+
         base.Attack();
 
         // Instantiate and shoot a projectile
