@@ -27,6 +27,7 @@ public class BaseTowerController : MonoBehaviour
     internal List<Transform> attackTargets = new();
     internal Transform towerHingeTransform; // Transform to rotate tower model
     internal BaseStats baseStats;
+    private Animator animator;
 
     public void LevelUp()
     {
@@ -37,13 +38,19 @@ public class BaseTowerController : MonoBehaviour
     {
         towerHingeTransform = GetComponentInChildren<TowerHinge>()?.transform;
         baseStats = GetComponent<BaseStats>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         DetectTarget();
         RotateTowardsTarget();
-        Attack();
+        PrepareAttack();
+    }
+
+    private void PrepareAttack()
+    {
+        animator.SetTrigger("Attack");
     }
 
     private void RotateTowardsTarget()
@@ -80,7 +87,7 @@ public class BaseTowerController : MonoBehaviour
         attackTargets = targetComponent.DetectTargets(baseStats.CurrentStats.attackRange, targetLayer);
     }
 
-
+    // Called from animation event
     internal virtual void Attack()
     {
     }

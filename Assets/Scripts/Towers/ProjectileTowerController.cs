@@ -1,10 +1,11 @@
-using System;
 using UnityEngine;
 
 public class ProjectileTowerController : BaseTowerController
 {
     internal override void Attack()
     {
+        base.Attack();
+
         if (attackTargets.Count != 1
             || Time.time < nextAttackTime
             || DistanceToTarget(attackTargets[0]) > baseStats.CurrentStats.attackRange)
