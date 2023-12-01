@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public bool isPaused;
     public bool started;
+    [SerializeField] AudioSource music;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        music.Stop();
     }
 
     public void ResumeGame()
@@ -49,6 +51,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        music.Play();
     }
 
     public void GoToMainMenu()

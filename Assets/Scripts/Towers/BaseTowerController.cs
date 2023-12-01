@@ -24,6 +24,8 @@ public class BaseTowerController : MonoBehaviour
     internal bool attackCenterMass;
     [SerializeField]
     private AudioSource attackAudio;
+    [SerializeField]
+    private AudioClip attackClip;
 
     internal float nextAttackTime;
     internal List<Transform> attackTargets = new();
@@ -62,6 +64,8 @@ public class BaseTowerController : MonoBehaviour
         if (IsReadyToAttack())
         {
             animator.SetTrigger("Attack");
+            if (attackAudio != null && attackClip != null)
+                attackAudio.PlayOneShot(attackClip);
             nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
         }
     }
@@ -103,8 +107,6 @@ public class BaseTowerController : MonoBehaviour
     // Called from animation event
     internal virtual void Attack()
     {
-        if (attackAudio != null)
-            attackAudio.Play();
     }
 
     internal virtual bool IsReadyToAttack()

@@ -14,6 +14,8 @@ public class AIController : MonoBehaviour
     private GameObject carrySlot;
     [SerializeField]
     private AudioSource attackAudio;
+    [SerializeField]
+    private AudioClip attackClip;
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -156,8 +158,8 @@ public class AIController : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < 4.5f)
             target.GetComponent<Health>()?.TakeDamage(baseStats.CurrentStats.damage);
-        if (attackAudio != null)
-            attackAudio.Play();
+        if (attackAudio != null && attackClip != null)
+            attackAudio.PlayOneShot(attackClip);
     }
 
     public void Die()
