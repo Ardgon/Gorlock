@@ -1,5 +1,7 @@
 using System;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerSelectionSystem : MonoBehaviour
 {
@@ -40,10 +42,27 @@ public class TowerSelectionSystem : MonoBehaviour
         selectedTowerPanel.SetActive(false);
     }
 
+    // Called from ui utton
+    public void RemoveTower()
+    {
+        if (selectedTower != null)
+        {
+            FindObjectOfType<GridPlacementSystem>().RemoveTower(selectedTower);
+            Destroy(selectedTower.gameObject);
+            DeselectTower();
+        }
+    }
+
     private void SelectTower()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
+        // Check if the mouse is over a UI element
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, targetLayer))
         {

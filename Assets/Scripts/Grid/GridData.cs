@@ -7,6 +7,17 @@ public class GridData
 {
     Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
+    public int GetObjectIdAtCell(Vector3Int gridPosition)
+    {
+        if (!placedObjects.ContainsKey(gridPosition))
+        {
+            Debug.LogError($"No object placed on grid pos {gridPosition} when getting id");
+            return -1;
+        }
+            
+        return placedObjects[gridPosition].ID;
+    }
+
     public void RemoveObjectAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
         List<Vector3Int> positionToOccupy = CalculatePosition(gridPosition, objectSize);

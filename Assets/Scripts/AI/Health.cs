@@ -33,9 +33,11 @@ public class Health : MonoBehaviour
             var aiController = GetComponent<AIController>();
             if (aiController != null)
             {
-                aiController.DropCarriedObject();
+                aiController.Die();
+            } else
+            {
+                Destroy(gameObject);
             }
-            Destroy(gameObject);
         }
     }
 

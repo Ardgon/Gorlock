@@ -31,7 +31,5 @@ public class AOEAttackTowerController : BaseTowerController
                 }
             }
         }
-
-        nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
     }
 }

@@ -8904,6 +8904,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 1638512254102778766, guid: 097235638d364db499076dca18c62cd6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1638512254102778767, guid: 097235638d364db499076dca18c62cd6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11672,6 +11676,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1032661484965963299, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
+      propertyPath: m_text
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1463746245583108408, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -12074,6 +12082,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8069822617979088153, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069822617979088153, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8069822618714489685, guid: 503a905bb9ca9594887801adde3f977f, type: 3}

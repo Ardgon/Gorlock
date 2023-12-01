@@ -24,7 +24,5 @@ public class HealTowerController : BaseTowerController
             // Set the target for the projectile
             projectileController.SetTarget(attackTargets[0].transform, projectileSpeed, baseStats.CurrentStats.damage, attackCenterMass);
         }
-
-        nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
     }
 }

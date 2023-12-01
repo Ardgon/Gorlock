@@ -51,7 +51,10 @@ public class BaseTowerController : MonoBehaviour
     private void PrepareAttack()
     {
         if (IsReadyToAttack())
+        {
             animator.SetTrigger("Attack");
+            nextAttackTime = Time.time + baseStats.CurrentStats.attackDelay;
+        }
     }
 
     private void RotateTowardsTarget()

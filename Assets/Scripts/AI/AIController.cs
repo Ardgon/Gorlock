@@ -152,6 +152,13 @@ public class AIController : MonoBehaviour
         target.GetComponent<Health>()?.TakeDamage(baseStats.CurrentStats.damage);
     }
 
+    public void Die()
+    {
+        DropCarriedObject();
+        GameMode.Instance.AddCoins(2);
+        Destroy(gameObject);
+    }
+
     public void DropCarriedObject()
     {
         if (carriedObject == null)
@@ -198,7 +205,7 @@ public class AIController : MonoBehaviour
                 Vector3Int tryPositionGrid = gridPosition + new Vector3Int(x, 0, y);
                 Vector3 tryPositionWorld = gridPlacementSystem.CellToWorldPosition(tryPositionGrid);
 
-                bool validOnGrid = gridPlacementSystem.CheckPlacementValidity(tryPositionGrid, Vector2Int.one);
+                bool validOnGrid = gridPlacementSystem.CheckPlacementValidity(tryPositionGrid, Vector2Int.one, 0);
                 bool onNavmesh = NavMesh.SamplePosition(tryPositionWorld, out NavMeshHit hit, 0.5f, NavMesh.AllAreas);
 
                 if (validOnGrid && onNavmesh)

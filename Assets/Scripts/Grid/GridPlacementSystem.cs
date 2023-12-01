@@ -31,6 +31,22 @@ public class GridPlacementSystem : MonoBehaviour
         StopPlacement();
     }
 
+    public int GetObjectIdAtCell(Vector3Int gridPosition)
+    {
+        return gridObjectData.GetObjectIdAtCell(gridPosition);
+    }
+
+    public void RemoveTower(BaseTowerController tower)
+    {
+        var gridPos = WorldToCellPosition(tower.transform.position);
+        var id = GetObjectIdAtCell(gridPos);
+        var size = database.objectData[id].Size;
+        if (rotated)
+            size = new Vector2Int(size.y, size.x);
+
+        gridObjectData.RemoveObjectAt(gridPos, size);
+    }
+
     public Vector3Int WorldToCellPosition(Vector3 worldPosition)
     {
         return grid.WorldToCell(worldPosition);
@@ -41,7 +57,7 @@ public class GridPlacementSystem : MonoBehaviour
         return grid.CellToWorld(gridPosition);
     }
 
-    public GameObject SpawnRandomlyOnGrid(int id, int attempts = 5)
+    public GameObject SpawnRandomlyOnGrid(int id, int cost = 0, int attempts = 5)
     {
         GameObject prefabToSpawn = database.objectData[id].Prefab;
         Vector2Int size = database.objectData[id].Size;
@@ -65,7 +81,7 @@ public class GridPlacementSystem : MonoBehaviour
             Vector3Int gridPosition = grid.WorldToCell(worldPosition);
 
             // Check if the position is valid for placement
-            if (CheckPlacementValidity(gridPosition, size))
+            if (CheckPlacementValidity(gridPosition, size, cost))
             {
                 float randomRotationY = UnityEngine.Random.Range(0f, 360f);
 
@@ -123,7 +139,7 @@ public class GridPlacementSystem : MonoBehaviour
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-        if (!CheckPlacementValidity(gridPosition, GetSize()))
+        if (!CheckPlacementValidity(gridPosition, GetSize(), GetCost()))
             return;
 
         GameObject newObject = Instantiate(database.objectData[selectedObjectIndex].Prefab);
@@ -136,6 +152,9 @@ public class GridPlacementSystem : MonoBehaviour
         }
 
         AddObject(newObject, GetSize(), database.objectData[selectedObjectIndex].ID);
+
+        GameMode.Instance.RemoveCoins(GetCost());
+
         preview.UpdatePosition(placementPosition, false, GetSize()); 
     }
 
@@ -144,9 +163,14 @@ public class GridPlacementSystem : MonoBehaviour
         return new Vector3(worldPosition.x + 0.5f, worldPosition.y, worldPosition.z + 0.5f);
     }
 
-    public bool CheckPlacementValidity(Vector3Int gridPosition, Vector2Int size)
+    public bool CheckPlacementValidity(Vector3Int gridPosition, Vector2Int size, int cost)
     {
-        return gridObjectData.CanPlaceObjectAt(gridPosition, size);
+        return CanAffordToPlace(cost) && gridObjectData.CanPlaceObjectAt(gridPosition, size);
+    }
+
+    private bool CanAffordToPlace(int cost)
+    {
+        return GameMode.Instance.HasEnoughCoins(cost);
     }
 
     private Vector2Int GetSize()
@@ -158,6 +182,11 @@ public class GridPlacementSystem : MonoBehaviour
         }
 
         return database.objectData[selectedObjectIndex].Size;
+    }
+
+    private int GetCost()
+    {
+        return database.objectData[selectedObjectIndex].Cost;
     }
 
     private void StopPlacement()
@@ -188,7 +217,7 @@ public class GridPlacementSystem : MonoBehaviour
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-        bool placementValidity = CheckPlacementValidity(gridPosition, GetSize());
+        bool placementValidity = CheckPlacementValidity(gridPosition, GetSize(), GetCost());
         Vector3 placementPosition = OffestPositionToCellCenter(grid.CellToWorld(gridPosition));
         preview.UpdatePosition(placementPosition, placementValidity, GetSize());
         lastDetectedPosition = gridPosition;
