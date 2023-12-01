@@ -9451,7 +9451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1226328853, guid: 11ef01c707c450c4a9dc3344fa589d8f, type: 3}
       propertyPath: waves.Array.data[0].numberOfCrumbs
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1226328853, guid: 11ef01c707c450c4a9dc3344fa589d8f, type: 3}
       propertyPath: waves.Array.data[0].timeToNextWave
