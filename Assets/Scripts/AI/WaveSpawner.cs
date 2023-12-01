@@ -32,6 +32,7 @@ public class WaveSpawner : MonoBehaviour
                 enemyType.enemiesLeft = enemyType.amount;
             }
         }
+        SpawnCrumbs();
     }
 
     private void Update()
@@ -50,7 +51,8 @@ public class WaveSpawner : MonoBehaviour
                 readyToSpawnWave = true;
                 waveCooldown = waves[currentWaveIndex].timeToNextWave;
                 // Spawn crumbs before next wave
-                SpawnCrumbs();
+                if (currentWaveIndex > 0)
+                    SpawnCrumbs();
                 StartCoroutine(SpawnWave());
             }
         }
