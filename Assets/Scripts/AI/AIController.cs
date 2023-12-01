@@ -154,7 +154,8 @@ public class AIController : MonoBehaviour
         if (target == null)
             return;
 
-        target.GetComponent<Health>()?.TakeDamage(baseStats.CurrentStats.damage);
+        if (Vector3.Distance(transform.position, target.transform.position) < 4.5f)
+            target.GetComponent<Health>()?.TakeDamage(baseStats.CurrentStats.damage);
         if (attackAudio != null)
             attackAudio.Play();
     }
