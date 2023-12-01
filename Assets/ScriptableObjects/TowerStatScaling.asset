@@ -35,7 +35,7 @@ MonoBehaviour:
     scaling:
     - level: 1
       movementSpeed: 0
-      attackDelay: 1.5
+      attackDelay: 0
       defense: 0
       maxHealth: 80
       damage: 10

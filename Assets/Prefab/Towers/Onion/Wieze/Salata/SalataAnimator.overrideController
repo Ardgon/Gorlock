@@ -9,7 +9,7 @@ AnimatorOverrideController:
   m_Name: SalataAnimator
   m_Controller: {fileID: 9100000, guid: 045a02ceaa5b1704fb11a42b9cda95b4, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -623603649343465320, guid: 3a2b241ab336e1742bf1b54bb6d2b9e5, type: 3}
-    m_OverrideClip: {fileID: -623603649343465320, guid: d802f48eff4ba594bbcaa9634a187214, type: 3}
   - m_OriginalClip: {fileID: -623603649343465320, guid: bed0f6c44e75028418f589437aa1eaaa, type: 3}
     m_OverrideClip: {fileID: 4781951162920444690, guid: 5c8765f2c494577429b2c699c4a53bb8, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: b693e41f4c89d1944ad89c7c59d54ec4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b693e41f4c89d1944ad89c7c59d54ec4, type: 2}
