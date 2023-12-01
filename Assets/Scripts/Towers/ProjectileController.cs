@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [Serializable]
 public class StatusEffectData
@@ -17,6 +18,8 @@ public class ProjectileController : MonoBehaviour
     private float distanceThreshold = 0.1f;
     [SerializeField]
     private List<StatusEffectData> statusEffects = new List<StatusEffectData>();
+    [SerializeField]
+    private List<GameObject> spawnObjects = new List<GameObject>();
 
     private float speed = 15f;
     private Transform target;
@@ -82,9 +85,22 @@ public class ProjectileController : MonoBehaviour
             {
                 target.GetComponent<Health>()?.TakeDamage(damageToDeal);
                 ApplyStatusEffects();
+                SpawnEffects();
             }
 
             Destroy(gameObject);
+        }
+    }
+
+    private void SpawnEffects()
+    {
+        foreach (var effect in spawnObjects)
+        {
+            bool hasHit = NavMesh.SamplePosition(target.transform.position, out NavMeshHit hit, 1.5f, NavMesh.AllAreas);
+            if (hasHit)
+                Instantiate(effect, hit.position, Quaternion.identity);
+            else
+                Instantiate(effect, target.transform.position, Quaternion.identity);
         }
     }
 

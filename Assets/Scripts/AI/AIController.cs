@@ -29,6 +29,7 @@ public class AIController : MonoBehaviour
     private float timeSinceLastSearch = 0f;
 
     public float speedModifier = 0f;
+    public Coroutine speedModifierCoroutine;
 
     public void SetSpawnPoint(WaveSpawner spawnPoint)
     {
@@ -154,7 +155,8 @@ public class AIController : MonoBehaviour
             return;
 
         target.GetComponent<Health>()?.TakeDamage(baseStats.CurrentStats.damage);
-        attackAudio.Play();
+        if (attackAudio != null)
+            attackAudio.Play();
     }
 
     public void Die()
