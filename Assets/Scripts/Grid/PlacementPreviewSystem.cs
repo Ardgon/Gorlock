@@ -48,6 +48,7 @@ public class PlacementPreviewSystem : MonoBehaviour
         PreparePreview(previewObject);
         PrepareCursor(size);
         cellIndicator.SetActive(true);
+        previewObject.GetComponent<LineRenderer>().enabled = true;
     }
 
     private void PrepareCursor(Vector2Int size)

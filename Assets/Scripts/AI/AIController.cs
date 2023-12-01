@@ -23,6 +23,8 @@ public class AIController : MonoBehaviour
     private GameObject carriedObject;
     private WaveSpawner spawnPoint;
     private GridPlacementSystem gridPlacementSystem;
+    private float targetSearchCooldown = 2f;
+    private float timeSinceLastSearch = 0f;
 
     public void SetSpawnPoint(WaveSpawner spawnPoint)
     {
@@ -47,9 +49,10 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (carriedObject == null)
+        if (carriedObject == null && timeSinceLastSearch <= 0)
         {
             FindTarget();
+            timeSinceLastSearch = targetSearchCooldown;
         }
         MoveToTarget();
         UpdateAnimator();
@@ -58,6 +61,8 @@ public class AIController : MonoBehaviour
             RotateTowardsTarget();
             Attack();
         }
+
+        timeSinceLastSearch -= Time.deltaTime;
     }
 
     private float GetDistanceToTargetCollider(Collider targetCollider)

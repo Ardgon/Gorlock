@@ -12,6 +12,7 @@ public class BaseStats : MonoBehaviour
     private LevelStats currentStats;
 
     public LevelStats CurrentStats => currentStats;
+    public characterType CharacterType => characterType;
 
     public void Awake()
     {

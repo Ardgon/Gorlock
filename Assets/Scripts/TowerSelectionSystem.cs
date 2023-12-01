@@ -34,6 +34,8 @@ public class TowerSelectionSystem : MonoBehaviour
 
     private void DeselectTower()
     {
+        if (selectedTower != null)
+            selectedTower.GetComponent<LineRenderer>().enabled = false;
         selectedTower = null;
         selectedTowerPanel.SetActive(false);
     }
@@ -48,7 +50,7 @@ public class TowerSelectionSystem : MonoBehaviour
             // Check if the clicked object is a tower
             BaseTowerController tower = hit.collider.gameObject.GetComponent<BaseTowerController>();
 
-            if (tower != null)
+            if (tower != null || !tower.enabled)
             {
                 if (selectedTower != null)
                 {
@@ -59,6 +61,7 @@ public class TowerSelectionSystem : MonoBehaviour
                 selectedTower = tower;
                 towerSelectionPanelPopulator.PopulatePanel(tower.baseStats);
                 selectedTowerPanel.SetActive(true);
+                selectedTower.GetComponent<LineRenderer>().enabled = true;
             }
         } else
         {
