@@ -180,7 +180,7 @@ public class AIController : MonoBehaviour
         carriedObject.AddComponent<CrumbFoodSource>();
         carriedObject.GetComponent<NavMeshObstacle>().enabled = true;
         carriedObject.GetComponent<Collider>().enabled = true;
-        gridPlacementSystem.AddObject(target.gameObject, Vector2Int.one, 5);
+        gridPlacementSystem.AddObject(target.gameObject, Vector2Int.one, 7);
 
         return true;
     }
@@ -219,16 +219,31 @@ public class AIController : MonoBehaviour
     {
         target = targetPriority.FindTarget();
 
+
         if (target != null)
         {
-            NavMeshPath path = new NavMeshPath();
-            navMeshAgent.CalculatePath(target.transform.position, path);
+            Vector3 closestPointOnTargetCollider = target.ClosestPoint(aiCollider.bounds.center);
+            bool hasHit = NavMesh.SamplePosition(closestPointOnTargetCollider, out NavMeshHit hit, 1.5f, NavMesh.AllAreas);
 
+            // No valid point on navmesh to walk to
+            if (!hasHit)
+            {
+                // If the path is not complete, find the nearest reachable FoodSource
+                FindNearestReachableFoodSource();
+                return;
+            }
+
+            NavMeshPath path = new NavMeshPath();
+            navMeshAgent.CalculatePath(hit.position, path);
+
+            // Path broken by obstacle
             if (path.status != NavMeshPathStatus.PathComplete)
             {
                 // If the path is not complete, find the nearest reachable FoodSource
                 FindNearestReachableFoodSource();
             }
+
+            // Food can be reached
         }
     }
 
@@ -240,10 +255,11 @@ public class AIController : MonoBehaviour
 
         foreach (var foodSource in foodSources)
         {
-            float distance = Vector3.Distance(transform.position, foodSource.transform.position);
+            Collider foodCollider = foodSource.GetComponent<Collider>();
+            float distance = GetDistanceToTargetCollider(foodCollider);
 
             // Check if the FoodSource is reachable
-            if (IsFoodSourceReachable(foodSource.transform.position))
+            if (IsFoodSourceReachable(foodCollider))
             {
                 // Update nearest reachable food source if the current one is closer
                 if (distance < minDistance)
@@ -258,13 +274,18 @@ public class AIController : MonoBehaviour
         {
             // Set the nearest reachable FoodSource as the new target
             target = nearestFoodSource.GetComponent<Collider>();
+        } else
+        {
+            Debug.LogWarning("Found no available food source but path is blocked");
         }
     }
 
-    private bool IsFoodSourceReachable(Vector3 foodSourcePosition)
+    private bool IsFoodSourceReachable(Collider foodSourceCollider)
     {
         NavMeshPath path = new NavMeshPath();
-        navMeshAgent.CalculatePath(foodSourcePosition, path);
+        Vector3 closestPointOnTargetCollider = aiCollider.ClosestPoint(foodSourceCollider.bounds.center);
+
+        navMeshAgent.CalculatePath(closestPointOnTargetCollider, path);
 
         // Check if the path to the FoodSource is complete
         return path.status == NavMeshPathStatus.PathComplete;

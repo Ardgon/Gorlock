@@ -21,7 +21,7 @@ MonoBehaviour:
       defense: 0
       maxHealth: 80
       damage: 25
-      attackRange: 5
+      attackRange: 4
   - characterType: 10
     scaling:
     - level: 1
@@ -39,7 +39,7 @@ MonoBehaviour:
       defense: 0
       maxHealth: 80
       damage: 10
-      attackRange: 4
+      attackRange: 2
   - characterType: 11
     scaling:
     - level: 1
@@ -48,7 +48,7 @@ MonoBehaviour:
       defense: 0
       maxHealth: 80
       damage: 14
-      attackRange: 4
+      attackRange: 3
   - characterType: 12
     scaling:
     - level: 1
@@ -66,7 +66,7 @@ MonoBehaviour:
       defense: 0
       maxHealth: 80
       damage: 16
-      attackRange: 6
+      attackRange: 3
   - characterType: 14
     scaling:
     - level: 1
