@@ -1,3 +1,4 @@
+using System;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
@@ -164,9 +165,16 @@ public class AIController : MonoBehaviour
 
     public void Die()
     {
-        DropCarriedObject();
-        GameMode.Instance.AddCoins(1);
+        try
+        {
+            DropCarriedObject();
+            GameMode.Instance.AddCoins(1);
+        } catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
         Destroy(gameObject);
+
     }
 
     public void DropCarriedObject()
@@ -318,7 +326,7 @@ public class AIController : MonoBehaviour
 
         Vector3 targetPosition = target.transform.position;
 
-        Vector2 randomCircle = Random.insideUnitCircle * spreadRadius;
+        Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * spreadRadius;
         Vector3 offset = new Vector3(randomCircle.x, 0f, randomCircle.y);
         // Set destination to closest point on the target's collider
         Vector3 destination = target.ClosestPoint(targetPosition + offset);
