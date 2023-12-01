@@ -43,6 +43,7 @@ public class PlacementPreviewSystem : MonoBehaviour
 
         // Disable AI Controller
         previewObject.GetComponent<BaseTowerController>().enabled = false;
+        Destroy(previewObject.GetComponent<FoodSource>());
 
         PreparePreview(previewObject);
         PrepareCursor(size);

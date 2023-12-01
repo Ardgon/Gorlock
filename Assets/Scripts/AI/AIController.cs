@@ -138,6 +138,15 @@ public class AIController : MonoBehaviour
         }
     }
 
+    // Called from animation
+    private void Hit()
+    {
+        if (target == null)
+            return;
+
+        target.GetComponent<Health>()?.TakeDamage(baseStats.CurrentStats.damage);
+    }
+
     public void DropCarriedObject()
     {
         if (carriedObject == null)
@@ -204,7 +213,58 @@ public class AIController : MonoBehaviour
     private void FindTarget()
     {
         target = targetPriority.FindTarget();
+
+        if (target != null)
+        {
+            NavMeshPath path = new NavMeshPath();
+            navMeshAgent.CalculatePath(target.transform.position, path);
+
+            if (path.status != NavMeshPathStatus.PathComplete)
+            {
+                // If the path is not complete, find the nearest reachable FoodSource
+                FindNearestReachableFoodSource();
+            }
+        }
     }
+
+    private void FindNearestReachableFoodSource()
+    {
+        FoodSource[] foodSources = FindObjectsOfType<FoodSource>();
+        float minDistance = float.MaxValue;
+        FoodSource nearestFoodSource = null;
+
+        foreach (var foodSource in foodSources)
+        {
+            float distance = Vector3.Distance(transform.position, foodSource.transform.position);
+
+            // Check if the FoodSource is reachable
+            if (IsFoodSourceReachable(foodSource.transform.position))
+            {
+                // Update nearest reachable food source if the current one is closer
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestFoodSource = foodSource;
+                }
+            }
+        }
+
+        if (nearestFoodSource != null)
+        {
+            // Set the nearest reachable FoodSource as the new target
+            target = nearestFoodSource.GetComponent<Collider>();
+        }
+    }
+
+    private bool IsFoodSourceReachable(Vector3 foodSourcePosition)
+    {
+        NavMeshPath path = new NavMeshPath();
+        navMeshAgent.CalculatePath(foodSourcePosition, path);
+
+        // Check if the path to the FoodSource is complete
+        return path.status == NavMeshPathStatus.PathComplete;
+    }
+
 
     private void MoveToTarget()
     {

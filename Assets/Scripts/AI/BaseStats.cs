@@ -22,10 +22,10 @@ public class BaseStats : MonoBehaviour
     public void SetLevel(int newLevel)
     {
         level = newLevel;
-        currentStats = GwtCurrentStats();
+        currentStats = GetCurrentStats();
     }
 
-    private LevelStats GwtCurrentStats()
+    private LevelStats GetCurrentStats()
     {
         CharacterLevelScaling characterScaling = GetCharacterScaling();
 
