@@ -166,7 +166,7 @@ public class AIController : MonoBehaviour
 
         if (!Drop())
         {
-            Destroy(target);
+            Destroy(carriedObject);
         }
 
         carriedObject = null;
@@ -182,12 +182,12 @@ public class AIController : MonoBehaviour
 
         // detach carried object
         carriedObject.transform.SetParent(null);
-        target.transform.position = dropPosition.Value;
+        carriedObject.transform.position = dropPosition.Value;
 
         carriedObject.AddComponent<CrumbFoodSource>();
         carriedObject.GetComponent<NavMeshObstacle>().enabled = true;
         carriedObject.GetComponent<Collider>().enabled = true;
-        gridPlacementSystem.AddObject(target.gameObject, Vector2Int.one, 7);
+        gridPlacementSystem.AddObject(carriedObject.gameObject, Vector2Int.one, 7);
 
         return true;
     }

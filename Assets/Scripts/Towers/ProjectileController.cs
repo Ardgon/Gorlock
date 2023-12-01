@@ -8,6 +8,7 @@ public class StatusEffectData
     public GameObject effectPrefab;
     [Range(0f, 1f)]
     public float chanceToApply;
+    public bool allowMultiple;
 }
 
 public class ProjectileController : MonoBehaviour
@@ -97,7 +98,8 @@ public class ProjectileController : MonoBehaviour
 
         foreach (var effectData in statusEffects)
         {
-            if (UnityEngine.Random.value <= effectData.chanceToApply && !statusEffectHandler.HasEffect(effectData.effectPrefab))
+            if (UnityEngine.Random.value <= effectData.chanceToApply 
+                && (!statusEffectHandler.HasEffect(effectData.effectPrefab) || effectData.allowMultiple))
             {
                 statusEffectHandler.ApplyEffect(effectData.effectPrefab);
             }
