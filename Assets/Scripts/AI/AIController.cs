@@ -23,7 +23,7 @@ public class AIController : MonoBehaviour
     private GameObject carriedObject;
     private WaveSpawner spawnPoint;
     private GridPlacementSystem gridPlacementSystem;
-    private float targetSearchCooldown = 2f;
+    private float targetSearchCooldown = 5f;
     private float timeSinceLastSearch = 0f;
 
     public void SetSpawnPoint(WaveSpawner spawnPoint)
