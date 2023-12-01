@@ -96,7 +96,8 @@ public class BaseTowerController : MonoBehaviour
     // Called from animation event
     internal virtual void Attack()
     {
-        attackAudio.Play();
+        if (attackAudio != null)
+            attackAudio.Play();
     }
 
     internal virtual bool IsReadyToAttack()
