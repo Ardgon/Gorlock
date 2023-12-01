@@ -12,6 +12,8 @@ public class AIController : MonoBehaviour
     private PriorityBase targetPriority;
     [SerializeField]
     private GameObject carrySlot;
+    [SerializeField]
+    private AudioSource attackAudio;
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -25,6 +27,8 @@ public class AIController : MonoBehaviour
     private GridPlacementSystem gridPlacementSystem;
     private float targetSearchCooldown = 5f;
     private float timeSinceLastSearch = 0f;
+
+    public float speedModifier = 0f;
 
     public void SetSpawnPoint(WaveSpawner spawnPoint)
     {
@@ -150,6 +154,7 @@ public class AIController : MonoBehaviour
             return;
 
         target.GetComponent<Health>()?.TakeDamage(baseStats.CurrentStats.damage);
+        attackAudio.Play();
     }
 
     public void Die()
@@ -304,7 +309,7 @@ public class AIController : MonoBehaviour
         if (target == null || Vector3.Distance(target.transform.position, lastTargetPosition) <= float.Epsilon)
             return;
 
-        navMeshAgent.speed = baseStats.CurrentStats.movementSpeed;
+        navMeshAgent.speed = baseStats.CurrentStats.movementSpeed + speedModifier;
 
         Vector3 targetPosition = target.transform.position;
 

@@ -22,6 +22,8 @@ public class BaseTowerController : MonoBehaviour
     internal bool continuousTargetting;
     [SerializeField]
     internal bool attackCenterMass;
+    [SerializeField]
+    private AudioSource attackAudio;
 
     internal float nextAttackTime;
     internal List<Transform> attackTargets = new();
@@ -94,6 +96,7 @@ public class BaseTowerController : MonoBehaviour
     // Called from animation event
     internal virtual void Attack()
     {
+        attackAudio.Play();
     }
 
     internal virtual bool IsReadyToAttack()
