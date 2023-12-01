@@ -56,7 +56,7 @@ MonoBehaviour:
       attackDelay: 1.6
       defense: 0
       maxHealth: 80
-      damage: -20
+      damage: -15
       attackRange: 4
   - characterType: 13
     scaling:
