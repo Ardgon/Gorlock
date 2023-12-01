@@ -29,7 +29,7 @@ MonoBehaviour:
       attackDelay: 4.5
       defense: 5
       maxHealth: 120
-      damage: 26
+      damage: 30
       attackRange: 2
   - characterType: 9
     scaling:
@@ -47,7 +47,7 @@ MonoBehaviour:
       attackDelay: 1.6
       defense: 0
       maxHealth: 70
-      damage: 6
+      damage: 0
       attackRange: 3
   - characterType: 12
     scaling:
@@ -65,7 +65,7 @@ MonoBehaviour:
       attackDelay: 0.8
       defense: 0
       maxHealth: 80
-      damage: 16
+      damage: 25
       attackRange: 3
   - characterType: 14
     scaling:
