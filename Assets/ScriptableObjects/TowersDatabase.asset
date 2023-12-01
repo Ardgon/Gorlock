@@ -17,7 +17,7 @@ MonoBehaviour:
     <ID>k__BackingField: 0
     <Cost>k__BackingField: 15
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 1389846613633234887, guid: d17d7f51f4d5b3e408794794abba97a5, type: 3}
+    <Prefab>k__BackingField: {fileID: 1389846613633234887, guid: afc96552332f0e24a83a392a28ee3843, type: 3}
   - <Name>k__BackingField: Olive
     <ID>k__BackingField: 1
     <Cost>k__BackingField: 25
