@@ -34,9 +34,14 @@ public class Health : MonoBehaviour
             if (aiController != null)
             {
                 aiController.Die();
-            } else
+            }
+            else
             {
-                Destroy(gameObject);
+                var towerController = GetComponent<BaseTowerController>();
+                if (towerController != null)
+                    towerController.Die();
+                else
+                    Destroy(gameObject);
             }
         }
     }

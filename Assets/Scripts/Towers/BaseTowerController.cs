@@ -31,6 +31,13 @@ public class BaseTowerController : MonoBehaviour
     internal BaseStats baseStats;
     private Animator animator;
 
+    public void Die()
+    {
+        var placementSystem = FindObjectOfType<GridPlacementSystem>();
+        placementSystem.RemoveTower(this);
+        Destroy(gameObject);
+    }
+
     public void LevelUp()
     {
         baseStats.SetLevel(baseStats.CurrentStats.level + 1);

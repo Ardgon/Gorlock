@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: a13f661881f90794db515f43ce1d21f3
-  - enabled: 1
     path: Assets/Scenes/OlekScene.unity
     guid: d0f3d171b9c7d5a4287d1510a9df102e
   m_configObjects: {}

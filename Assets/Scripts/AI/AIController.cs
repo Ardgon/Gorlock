@@ -162,7 +162,7 @@ public class AIController : MonoBehaviour
     public void Die()
     {
         DropCarriedObject();
-        GameMode.Instance.AddCoins(2);
+        GameMode.Instance.AddCoins(1);
         Destroy(gameObject);
     }
 
