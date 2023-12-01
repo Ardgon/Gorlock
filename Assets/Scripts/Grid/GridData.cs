@@ -7,10 +7,22 @@ public class GridData
 {
     Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
-    public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex)
+    public void RemoveObjectAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
         List<Vector3Int> positionToOccupy = CalculatePosition(gridPosition, objectSize);
-        PlacementData data = new PlacementData(positionToOccupy, ID, placedObjectIndex);
+
+        foreach (var pos in positionToOccupy)
+        {
+            if (!placedObjects.ContainsKey(pos))
+                throw new Exception($"Dictionary does contains this cell position: {pos}");
+            placedObjects.Remove(pos);
+        }
+    }
+
+    public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID)
+    {
+        List<Vector3Int> positionToOccupy = CalculatePosition(gridPosition, objectSize);
+        PlacementData data = new PlacementData(positionToOccupy, ID);
 
         foreach(var pos in positionToOccupy)
         {
@@ -51,12 +63,10 @@ public class PlacementData
 {
     public List<Vector3Int> OccupiedPositions;
     public int ID { get; private set; }
-    public int PlacedObjectIndex { get; private set; }
 
-    public PlacementData(List<Vector3Int> occupiedPositions, int iD, int placedObjectIndex)
+    public PlacementData(List<Vector3Int> occupiedPositions, int iD)
     {
         this.OccupiedPositions = occupiedPositions;
         this.ID = iD;
-        this.PlacedObjectIndex = placedObjectIndex;
     }
 }

@@ -25,7 +25,7 @@ public class LowestHealthTargetComponent : BaseTargetComponent
             if (targetHealth == null || targetController == null || targetController.enabled == false)
                 continue;
 
-            float targetHitpoints = targetHealth.GetHitHpoint();
+            float targetHitpoints = targetHealth.GetHitPointPercentage();
 
             if (targetHitpoints < lowestHealth)
             {
@@ -34,7 +34,7 @@ public class LowestHealthTargetComponent : BaseTargetComponent
                 potentialTargets.Add(targetTransform);
                 lowestHealth = targetHitpoints;
             }
-            else if (targetHitpoints == lowestHealth)
+            else if (Mathf.Approximately(targetHitpoints, lowestHealth))
             {
                 // Add this target to potential targets with the same lowest health
                 potentialTargets.Add(targetTransform);

@@ -1,3 +1,4 @@
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,6 +22,7 @@ public class AIController : MonoBehaviour
     private float nextAttackTime;
     private GameObject carriedObject;
     private WaveSpawner spawnPoint;
+    private GridPlacementSystem gridPlacementSystem;
 
     public void SetSpawnPoint(WaveSpawner spawnPoint)
     {
@@ -34,6 +36,7 @@ public class AIController : MonoBehaviour
         animator = GetComponent<Animator>();
         aiCollider = GetComponent<Collider>();
         baseStats = GetComponent<BaseStats>();
+        gridPlacementSystem = FindAnyObjectByType<GridPlacementSystem>();
     }
 
     public void SetLevel(int level)
@@ -47,14 +50,14 @@ public class AIController : MonoBehaviour
         if (carriedObject == null)
         {
             FindTarget();
-        }            
+        }
         MoveToTarget();
         UpdateAnimator();
         if (isInAttackRange())
         {
             RotateTowardsTarget();
             Attack();
-        }       
+        }
     }
 
     private float GetDistanceToTargetCollider(Collider targetCollider)
@@ -116,6 +119,7 @@ public class AIController : MonoBehaviour
         if (crumb != null)
         {
             // Pick up crumb logic
+            gridPlacementSystem.RemoveObject(target.gameObject, Vector2Int.one);
             target.transform.position = carrySlot.transform.position;
             target.gameObject.transform.parent = transform;
             Destroy(crumb);
@@ -125,7 +129,8 @@ public class AIController : MonoBehaviour
             carriedObject = target.gameObject;
             navMeshAgent.avoidancePriority = 0;
             target = spawnPoint.GetComponent<Collider>();
-        } else
+        }
+        else
         {
             // Trigger the attack animation
             animator.SetTrigger("Attack");
@@ -138,19 +143,7 @@ public class AIController : MonoBehaviour
         if (carriedObject == null)
             return;
 
-        // detach carried object
-        carriedObject.transform.SetParent(null);
-        NavMeshHit hit;
-        bool hasHit = NavMesh.SamplePosition(carriedObject.transform.position, out hit, 10f, NavMesh.AllAreas);
-
-        if (hasHit)
-        {
-            target.transform.position = hit.position;
-            carriedObject.AddComponent<CrumbFoodSource>();
-            carriedObject.GetComponent<NavMeshObstacle>().enabled = true;
-            carriedObject.GetComponent<Collider>().enabled = true;
-        }
-        else
+        if (!Drop())
         {
             Destroy(target);
         }
@@ -158,6 +151,49 @@ public class AIController : MonoBehaviour
         carriedObject = null;
         navMeshAgent.avoidancePriority = 50;
         target = null;
+    }
+
+    private bool Drop()
+    {
+        Vector3? dropPosition = FindNearestDropPosition(carriedObject.transform.position);
+        if (dropPosition == null)
+            return false;
+
+        // detach carried object
+        carriedObject.transform.SetParent(null);
+        target.transform.position = dropPosition.Value;
+
+        carriedObject.AddComponent<CrumbFoodSource>();
+        carriedObject.GetComponent<NavMeshObstacle>().enabled = true;
+        carriedObject.GetComponent<Collider>().enabled = true;
+        gridPlacementSystem.AddObject(target.gameObject, Vector2Int.one, 5);
+
+        return true;
+    }
+
+    private Vector3? FindNearestDropPosition(Vector3 position)
+    {
+        int maxDropRadiusX = 5;
+        int maxDropRadiusY = 5;
+
+        Vector3Int gridPosition = gridPlacementSystem.WorldToCellPosition(position);
+        for (int x = 0; x < maxDropRadiusX; x++)
+        {
+            for (int y = 0; y < maxDropRadiusY; y++)
+            {
+                Vector3Int tryPositionGrid = gridPosition + new Vector3Int(x, 0, y);
+                Vector3 tryPositionWorld = gridPlacementSystem.CellToWorldPosition(tryPositionGrid);
+
+                bool validOnGrid = gridPlacementSystem.CheckPlacementValidity(tryPositionGrid, Vector2Int.one);
+                bool onNavmesh = NavMesh.SamplePosition(tryPositionWorld, out NavMeshHit hit, 0.5f, NavMesh.AllAreas);
+
+                if (validOnGrid && onNavmesh)
+                {
+                    return gridPlacementSystem.CellToWorldPosition(gridPosition);
+                }
+            }            
+        }
+        return null;
     }
 
     private void UpdateAnimator()

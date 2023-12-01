@@ -13,10 +13,15 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float incomingDamage)
     {
-        float actualDamage = incomingDamage - baseStats.CurrentStats.defense;
+        float actualDamage = incomingDamage;
+        if (incomingDamage >= 0)
+        {
+            actualDamage -= baseStats.CurrentStats.defense;
+            actualDamage = Mathf.Clamp(actualDamage, 1f, incomingDamage);
+        }
 
         // Clamp damage dealt to [1, incomingDamange]
-        currentHealth -= Mathf.Clamp(actualDamage, 1f, incomingDamage);
+        currentHealth -= actualDamage;
 
         currentHealth = Mathf.Clamp(currentHealth, 0, baseStats.CurrentStats.maxHealth);
     }
@@ -34,9 +39,9 @@ public class Health : MonoBehaviour
         }
     }
 
-    public float GetHitHpoint() 
+    public float GetHitPointPercentage() 
     { 
-        return currentHealth;
+        return currentHealth / baseStats.CurrentStats.maxHealth;
     }
 
 }

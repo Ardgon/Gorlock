@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class GridPlacementSystem : MonoBehaviour
@@ -22,14 +23,22 @@ public class GridPlacementSystem : MonoBehaviour
     private PlacementPreviewSystem preview;
 
     private GridData gridObjectData = new();
-
-    private List<GameObject> placedGameObjects = new();
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
     private bool rotated;
 
     private void Awake()
     {
         StopPlacement();
+    }
+
+    public Vector3Int WorldToCellPosition(Vector3 worldPosition)
+    {
+        return grid.WorldToCell(worldPosition);
+    }
+
+    public Vector3 CellToWorldPosition(Vector3Int gridPosition)
+    {
+        return grid.CellToWorld(gridPosition);
     }
 
     public GameObject SpawnRandomlyOnGrid(int id, int attempts = 5)
@@ -73,11 +82,16 @@ public class GridPlacementSystem : MonoBehaviour
         return null;
     }
 
+    public void RemoveObject(GameObject obj, Vector2Int size)
+    {
+        Vector3Int gridPosition = grid.WorldToCell(obj.transform.position);
+        gridObjectData.RemoveObjectAt(gridPosition, size);
+    }
+
     public void AddObject(GameObject spawnedObject, Vector2Int size, int id)
     {
         Vector3Int gridPosition = grid.WorldToCell(spawnedObject.transform.position);
-        placedGameObjects.Add(spawnedObject);
-        gridObjectData.AddObjectAt(gridPosition, size, id, placedGameObjects.Count - 1);
+        gridObjectData.AddObjectAt(gridPosition, size, id);
     }
 
     // Called From UI Button
@@ -130,7 +144,7 @@ public class GridPlacementSystem : MonoBehaviour
         return new Vector3(worldPosition.x + 0.5f, worldPosition.y, worldPosition.z + 0.5f);
     }
 
-    private bool CheckPlacementValidity(Vector3Int gridPosition, Vector2Int size)
+    public bool CheckPlacementValidity(Vector3Int gridPosition, Vector2Int size)
     {
         return gridObjectData.CanPlaceObjectAt(gridPosition, size);
     }
