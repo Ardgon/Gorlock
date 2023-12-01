@@ -19,7 +19,7 @@ MonoBehaviour:
       movementSpeed: 1.2
       attackDelay: 2
       defense: 0
-      maxHealth: 60
+      maxHealth: 50
       damage: 5
       attackRange: 0.35
     - level: 2
