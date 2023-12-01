@@ -1,4 +1,5 @@
-# VeggiesVsGorlock
+# Veggies vs Gorlock
+Submission for GameOff2023 - Made in just 72 hours!
 
 Welcome to 'Veggies vs Gorlock,' where tower defense meets culinary chaos! In a world filled with the aftermath of Gorlock's epic eating spree, you, a bunch of brave veggies fallen from the grasps of Gorlock himself, find yourselves in a sticky situation. Gorlock's room is infested with ants, and you're the last line of defense for the one thing standing between him and, well, you. It's not just any burger—it's the last burger. As the veggies, you've got to fend off the ant invasion and protect your crispy haven. But beware, letting the ants carry off even the tiniest crumbs back to their nest could spell disaster—they'll grow stronger! Can you outsmart the relentless ants, secure the last bite, and avoid becoming Gorlock's next crunchy snack? Get ready for a quirky, addictive tower defense experience that'll have you strategizing against the odds in 'Veggies vs Gorlock'!
 
