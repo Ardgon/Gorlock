@@ -28,19 +28,19 @@ public class CameraMovement : MonoBehaviour
         Camera mainCamera = GetComponent<Camera>();
         Vector3 cameraForward = mainCamera.transform.forward;
 
-        if (Input.GetKey(KeyCode.W) && CameraPosition.z < 40)
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && CameraPosition.z < 40)
         {
             CameraPosition.z += CameraSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.S) && CameraPosition.z > 28)
+        if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && CameraPosition.z > 28)
         {
             CameraPosition.z -= CameraSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.A) && CameraPosition.x > -45)
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && CameraPosition.x > -45)
         {
             CameraPosition.x -= CameraSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.D) && CameraPosition.x < -10)
+        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && CameraPosition.x < -10)
         {
             CameraPosition.x += CameraSpeed * Time.deltaTime;
         }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4514317, g: 0.5007615, b: 0.5714455, a: 1}
+  m_IndirectSpecularColor: {r: 0.18388522, g: 0.22886506, b: 0.30214426, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2989,7 +2989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4036623906530160, guid: 25a0ecfef2d64e744a3a13f1e8d37a38, type: 3}
       propertyPath: m_LocalScale.x
-      value: 17.280191
+      value: 15.370486
       objectReference: {fileID: 0}
     - target: {fileID: 4036623906530160, guid: 25a0ecfef2d64e744a3a13f1e8d37a38, type: 3}
       propertyPath: m_LocalScale.y
@@ -3001,7 +3001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4036623906530160, guid: 25a0ecfef2d64e744a3a13f1e8d37a38, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.24
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 4036623906530160, guid: 25a0ecfef2d64e744a3a13f1e8d37a38, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3009,7 +3009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4036623906530160, guid: 25a0ecfef2d64e744a3a13f1e8d37a38, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.659
+      value: 2.658
       objectReference: {fileID: 0}
     - target: {fileID: 4036623906530160, guid: 25a0ecfef2d64e744a3a13f1e8d37a38, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8716,7 +8716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087678459}
   m_LocalRotation: {x: 0.49070904, y: 1.6964959e-10, z: 4.3365822e-10, w: 0.8713236}
-  m_LocalPosition: {x: 5.7566814, y: 14.470001, z: -5.7391586}
+  m_LocalPosition: {x: 5.87, y: 14.470001, z: -9.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11720,18 +11720,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 910907796593437758, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 910907796593437758, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
-      propertyPath: m_Volume
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 910907796593437758, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 220fb6622229afd409b622c2b3ab979d, type: 3}
     - target: {fileID: 982780522296338786, guid: 503a905bb9ca9594887801adde3f977f, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
